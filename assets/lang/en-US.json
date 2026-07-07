@@ -1,3 +1,10 @@
 {
-    "title" :"hello"
+    
+  "errors": {
+    "connectionTimeout": "Connection timed out. Please try again.",
+    "noInternet": "No internet connection. Please check your network.",
+    "unauthorized": "Your session has expired. Please log in again.",
+    "unknown": "Something went wrong."
+  }
+
 }
