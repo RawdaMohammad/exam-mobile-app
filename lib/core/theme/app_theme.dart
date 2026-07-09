@@ -33,6 +33,16 @@ class AppTheme {
           fontWeight: FontWeight.normal,
           color: appColors.secondaryColor
       ),
+      titleSmall: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: appColors.secondaryColor
+      ),
+      titleMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: appColors.secondaryColor
+      ),
     )
   );
 }

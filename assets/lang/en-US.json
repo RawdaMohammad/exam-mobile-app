@@ -5,6 +5,41 @@
     "noInternet": "No internet connection. Please check your network.",
     "unauthorized": "Your session has expired. Please log in again.",
     "unknown": "Something went wrong."
+  },
+  "passwordAppBar": "Password",
+  "forgetPassword": {
+    "title": "Forget Password",
+    "description": "Please enter the email associated with your account",
+    "emailLabel": "Email",
+    "emailHint": "Enter your email",
+    "continueButton": "Continue",
+    "emailRequired": "Please enter valid email",
+    "invalidEmail": "This email not valid",
+    "success": "Password reset email has been sent"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "Password must not be empty and must contain 6 characters with upper case letter and one number at least",
+    "newPasswordLabel": "New Password",
+    "newPasswordHint": "Enter your password",
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordHint": "Confirm password",
+    "continueButton": "Continue",
+    "newPasswordRequired": "Please enter a new password",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordMissingUppercase": "Password must contain at least one uppercase letter",
+    "passwordMissingNumber": "Password must contain at least one number",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "success": "Password has been reset successfully"
+  },
+  "verification": {
+    "title": "Email Verification",
+    "description": "Please enter the verification code sent to your email address",
+    "didNotReceiveCode": "Didn't receive code?",
+    "resend": "Resend",
+    "invalidCode": "Invalid code",
+    "codeExpired": "The verification code has expired",
+    "success": "Verification successful"
   }
-
 }
