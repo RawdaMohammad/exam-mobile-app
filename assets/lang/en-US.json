@@ -5,6 +5,75 @@
     "noInternet": "No internet connection. Please check your network.",
     "unauthorized": "Your session has expired. Please log in again.",
     "unknown": "Something went wrong."
-  }
+  },
+  "login_app_bar" : "Login",
+  
+  "signup": {
+    "SignUpAppBar": "Sign up",
+    "userName": "User name",
+    "enterUserName": "Enter your user name",
+    "userNameRequired": "User name is required",
 
+    "firstName": "First name",
+    "enterFirstName": "Enter first name",
+    "firstNameRequired": "First name is required",
+
+    "lastName": "Last name",
+    "enterLastName": "Enter last name",
+    "lastNameRequired": "Last name is required",
+
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Please enter a valid email address",
+
+    "password": "Password",
+    "enterPassword": "Enter password",
+    "passwordRequired": "Password is required",
+
+    "confirmPassword": "Confirm password",
+    "enterConfirmPassword": "Confirm password",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordNotMatch": "Passwords do not match",
+
+    "phoneNumber": "Phone number",
+    "enterPhoneNumber": "Enter phone number",
+    "phoneNumberRequired": "Phone number is required",
+    "invalidPhoneNumber": "Please enter a valid Egyptian phone number",
+
+    "signupButton": "Sign Up",
+
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLine": "Login"
+  },
+
+  "login": {
+  "appBar": "Login",
+
+  "email": "Email",
+  "enterEmail": "Enter your email",
+  "emailRequired": "Email is required",
+  "invalidEmail": "Please enter a valid email address",
+
+  "password": "Password",
+  "enterPassword": "Enter your password",
+  "passwordRequired": "Password is required",
+
+  "loginButton": "Login",
+
+  "dontHaveAccount": "Don't have an account? ",
+  "signUpLine": "Sign Up",
+    "rememberMe": "Remember me",
+  "forgetPassword": "Forget password?"
+},
+"passwordRules": {
+  "minLength": "At least 8 characters",
+  "upperCase": "Contains an uppercase letter",
+  "lowerCase": "Contains a lowercase letter",
+  "number": "Contains a number",
+  "special": "Contains a special character"
 }
+}
+
+
+

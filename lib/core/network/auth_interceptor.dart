@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Authinterceptor implements Interceptor {
+class AuthInterceptor implements Interceptor {
   final SharedPreferences sharedPreferences;
-  Authinterceptor(this.sharedPreferences);
+  AuthInterceptor(this.sharedPreferences);
 
   static const publicEndpoints = {
     "/api/v1/auth/signup",
