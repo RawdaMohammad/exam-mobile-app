@@ -30,6 +30,7 @@
     "password": "Password",
     "enterPassword": "Enter password",
     "passwordRequired": "Password is required",
+    "invalidPassword" :"The password is not valid",
 
     "confirmPassword": "Confirm password",
     "enterConfirmPassword": "Confirm password",
