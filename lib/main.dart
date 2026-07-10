@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/presentation/sign_up_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password_view.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -29,7 +30,35 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       color: Colors.amber,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const SignUpView(),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Text(tr("title"), style: TextStyle(fontSize: 30)),
+            ElevatedButton(
+              onPressed: () {
+                context.setLocale(Locale('en', 'US'));
+              },
+              child: Text("press"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

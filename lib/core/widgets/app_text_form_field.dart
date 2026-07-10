@@ -39,7 +39,9 @@ class AppTextFormField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(fontSize: 14),
         suffixIcon: suffixIcon,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
       ),
     );
   }
