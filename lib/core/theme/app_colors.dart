@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class AppColors {
   // Primary
@@ -11,6 +12,7 @@ abstract class AppColors {
   Color get whiteColor;
   Color get blackColor;
   Color get darkGreyColor;
+  Color get placeHolderColor;
 
   // Status Colors
   Color get successColor;
@@ -24,7 +26,7 @@ abstract class AppColors {
 
   Brightness get brightness;
 }
-
+@Injectable(as: AppColors)
 class LightThemeColors extends AppColors {
   // Primary Blue
   @override
@@ -70,7 +72,10 @@ class LightThemeColors extends AppColors {
   Color get blackColor => const Color(0xFF0F0F0F);
 
   @override
-  Color get darkGreyColor => const Color(0xFF5F5F5F);
+  Color get darkGreyColor => const Color(0xFF535353);
+
+  @override
+  Color get placeHolderColor => const Color(0xFFA6A6A6);
 
   // Status Colors
   @override
@@ -90,8 +95,62 @@ class LightThemeColors extends AppColors {
   Color get errorBackground => const Color(0xFFF8CACA);
 
   @override
-  Color get disabledColor => const Color(0xFFA5A5A5);
+  Color get disabledColor => const Color(0xFF878787);
 
   @override
   Brightness get brightness => Brightness.light;
+}
+
+class DarkThemeColors extends AppColors{
+  @override
+  // TODO: implement backgroundColor
+  Color get backgroundColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement blackColor
+  Color get blackColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement brightness
+  Brightness get brightness => throw UnimplementedError();
+
+  @override
+  // TODO: implement darkGreyColor
+  Color get darkGreyColor => throw UnimplementedError();
+
+  @override
+  Color get placeHolderColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement disabledColor
+  Color get disabledColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement errorBackground
+  Color get errorBackground => throw UnimplementedError();
+
+  @override
+  // TODO: implement errorColor
+  Color get errorColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement primaryColor
+  MaterialColor get primaryColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement secondaryColor
+  MaterialColor get secondaryColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement successBackground
+  Color get successBackground => throw UnimplementedError();
+
+  @override
+  // TODO: implement successColor
+  Color get successColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement whiteColor
+  Color get whiteColor => throw UnimplementedError();
+
 }

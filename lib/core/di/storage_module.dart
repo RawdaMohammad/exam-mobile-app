@@ -1,7 +1,10 @@
- import 'package:shared_preferences/shared_preferences.dart';
+import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class StorageModule{
- Future<SharedPreferences> getSharedPref() async {
-   return await SharedPreferences.getInstance();
- }
+@module
+abstract class StorageModule{
+  @preResolve
+   Future<SharedPreferences> getSharedPref() async {
+     return await SharedPreferences.getInstance();
+   }
 }
