@@ -84,7 +84,7 @@ class _SignUpViewState extends State<SignUpView> {
         ),
         title: Text(
           tr("signup.SignUpAppBar"),
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight(500)),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: SafeArea(
@@ -242,15 +242,13 @@ class _SignUpViewState extends State<SignUpView> {
                   SizedBox(height: 20),
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                      style: Theme.of(context).textTheme.bodyLarge,
                       children: [
                         TextSpan(text: tr("signup.alreadyHaveAccount")),
                         TextSpan(
                           text: tr("signup.loginLine"),
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 32, 62, 197),
-                            fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.underline,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary,
+                          decoration: TextDecoration.underline,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {

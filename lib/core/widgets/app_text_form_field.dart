@@ -37,7 +37,7 @@ class AppTextFormField extends StatelessWidget {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14),
+        hintStyle: Theme.of(context).textTheme.bodyMedium,
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),

@@ -17,20 +17,22 @@ class _VerificationViewState extends State<VerificationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 25,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {},
         ),
-        title: Text(tr("passwordAppBar"), style: Theme.of(context).textTheme.titleMedium,),
-        titleSpacing: 0,
+        title: Text(tr("passwordAppBar"), style: Theme.of(context).textTheme.titleLarge,),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(tr("verification.title"), style: Theme.of(context).textTheme.titleSmall),
+            Text(tr("verification.title"), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 16,),
-            Text(tr("verification.description"), style: Theme.of(context).textTheme.titleSmall, textAlign: TextAlign.center,),
+            Text(tr("verification.description"),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+              textAlign: TextAlign.center,),
             const SizedBox(height: 32,),
             OtpInput(onCompleted: (otp){
               debugPrint(otp);
@@ -39,15 +41,16 @@ class _VerificationViewState extends State<VerificationView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(tr("verification.didNotReceiveCode"), style: Theme.of(context).textTheme.titleSmall),
+                Text(tr("verification.didNotReceiveCode"), style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(width: 8,),
                 GestureDetector(
-                  child: Text(tr("verification.resend"), style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Theme.of(context).colorScheme.primary,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Theme.of(context).colorScheme.primary,
-                    decorationThickness: 2,)),
+                  child: Text(tr("verification.resend"),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                      ),
+                  ),
                   onTap: (){
-                    // ToDo
+                    // ToDo <<==
                     Navigator.push(
                         context,
                         MaterialPageRoute(

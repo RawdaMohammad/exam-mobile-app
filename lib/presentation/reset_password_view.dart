@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:exam_mobile_app/core/utils/signup_validators.dart';
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
-import 'package:exam_mobile_app/core/widgets/otp_input.dart';
 import 'package:flutter/material.dart';
+
+import '../core/utils/password_validator.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({super.key});
@@ -16,8 +18,31 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  bool _isNewPassValid = false, _isConfirmPassValid = false;
+  bool _isInfoValid = false;
   bool _isNewPassHidden = true, _isConfirmPassHidden = true;
+  bool hasMinLength = false;
+  bool hasUpperCase = false;
+  bool hasLowerCase = false;
+  bool hasNumber = false;
+  bool hasSpecialCharacter = false;
+  bool showPasswordRules = false;
+  void checkFormValidity() {
+    setState(() {
+      _isInfoValid = _formKey.currentState?.validate() ?? false;
+    });
+  }
+  void validatePassword(String password) {
+    setState(() {
+      showPasswordRules = password.isNotEmpty;
+      hasMinLength = PasswordValidator.hasMinLength(password);
+      hasUpperCase = PasswordValidator.hasUpperCase(password);
+      hasLowerCase = PasswordValidator.hasLowerCase(password);
+      hasNumber = PasswordValidator.hasNumber(password);
+      hasSpecialCharacter = PasswordValidator.hasSpecialCharacter(password);
+    });
+
+    checkFormValidity();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +64,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             children: [
               Text(tr("resetPassword.title"), style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: 16,),
-              Text(tr("resetPassword.description"), style: Theme.of(context).textTheme.titleSmall, textAlign: TextAlign.center,),
+              Text(tr("resetPassword.description"), style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.tertiary),
+                textAlign: TextAlign.center,),
               const SizedBox(height: 32,),
               AppTextFormField(
                   controller: _newPasswordController,
@@ -55,15 +81,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                       _isNewPassHidden ? Icons.visibility_off : Icons.visibility,
                     ),
                   ),
-                  validator: (value) {
-                    if(value == null || value.isEmpty){
-                      return tr("resetPassword.newPasswordRequired");
-                    }
-                    _isNewPassValid = true;
-                    return null;
-                  },
+                validator: SignupValidators.password,
                 obscureText: _isNewPassHidden,
-                onChanged: (value){
+                onChanged: (value) {
+                  validatePassword(value);
                 },
               ),
               const SizedBox(height: 25,),
@@ -81,20 +102,12 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                     _isConfirmPassHidden ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
-                validator: (value) {
-                  if(value == null || value.isEmpty){
-                    return tr("resetPassword.confirmPasswordRequired");
-                  }
-                  _isConfirmPassValid = true;
-                  return null;
-                },
+                validator: (value) => SignupValidators.confirmPassword(value, _newPasswordController.text),
                 obscureText: _isConfirmPassHidden,
-                onChanged: (value){
-                },
               ),
               const SizedBox(height: 48,),
               CustomButton(
-                isNotDisabled: _isNewPassValid && _isConfirmPassValid,
+                isNotDisabled: _isInfoValid,
                 buttonLabel: tr("forgetPassword.continueButton"),
                 onPressedAction:  () {
                  // ToDo

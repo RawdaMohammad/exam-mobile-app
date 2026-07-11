@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
+import 'package:exam_mobile_app/presentation/forget_password_view.dart';
 import 'package:exam_mobile_app/presentation/sign_up_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,9 @@ class _LoginViewState extends State<LoginView> {
             Navigator.pop(context);
           },
         ),
-        title: Text(tr("login.appBar")),
+        title: Text(
+            tr("login.appBar"),
+            style: Theme.of(context).textTheme.titleLarge),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -114,12 +117,14 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       Text(
                         tr("login.rememberMe"),
-                        style: const TextStyle(fontSize: 16),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          // Navigate to Forget Password screen
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (_) => const ForgetPasswordView(),
+                          ),);
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
@@ -128,11 +133,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         child: Text(
                           tr("login.forgetPassword"),
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 81, 97, 109),
-                            fontSize: 16,
-                            decoration: TextDecoration.underline,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(decoration: TextDecoration.underline),
                         ),
                       ),
                     ],
@@ -148,16 +149,14 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(height: 20),
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                      style: Theme.of(context).textTheme.bodyLarge,
                       children: [
                         TextSpan(text: tr("login.dontHaveAccount")),
                         TextSpan(
                           text: tr("login.signUpLine"),
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 32, 62, 197),
-                            fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.underline,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary,
+                          decoration: TextDecoration.underline,
+                        ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.push(

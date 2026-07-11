@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@injectable
 class AuthInterceptor implements Interceptor {
   final SharedPreferences sharedPreferences;
   AuthInterceptor(this.sharedPreferences);
@@ -24,11 +27,11 @@ class AuthInterceptor implements Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    String? token = sharedPreferences.getString("token");
+    String? token = sharedPreferences.getString(tokenKey);
     if (!publicEndpoints.contains(options.path) &&
         token != null &&
         token.isNotEmpty) {
-      options.headers["token"] = token;
+      options.headers[tokenKey] = token;
     }
 
     return handler.next(options);

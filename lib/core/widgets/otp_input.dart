@@ -75,7 +75,7 @@ class _OtpInputState extends State<OtpInput> {
               }
             },
             child: TextField(
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.titleSmall,
               controller: _controllers[index],
               focusNode: _focusNodes[index],
               textAlign: TextAlign.center,
@@ -92,7 +92,7 @@ class _OtpInputState extends State<OtpInput> {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
                     color:
-                    widget.hasError ? Colors.red : Colors.transparent,
+                    widget.hasError ? Theme.of(context).colorScheme.error : Colors.transparent,
                   ),
                 ),
 
@@ -100,14 +100,14 @@ class _OtpInputState extends State<OtpInput> {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
                     color:
-                    widget.hasError ? Colors.red : Colors.blue,
+                    widget.hasError ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.primary,
                     width: 2,
                   ),
                 ),
 
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.red),
+                  borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
                 ),
               ),
 
