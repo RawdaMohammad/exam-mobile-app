@@ -7,7 +7,6 @@ class UserEntity {
   final String? password;
   final String? rePassword;
   final String? phone;
-  final bool? isVerified;
 
   const UserEntity({
     this.id,
@@ -18,6 +17,5 @@ class UserEntity {
     this.password,
     this.rePassword,
     this.phone,
-    this.isVerified,
   });
 }

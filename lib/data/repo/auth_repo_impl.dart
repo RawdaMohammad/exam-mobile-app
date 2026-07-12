@@ -27,4 +27,13 @@ class AuthRepoImpl implements AuthRepo {
       return Success(mapper.toEntity(response));
     });
   }
+
+  @override
+  Future<ApiResults<UserEntity>> signUp(UserEntity user) {
+    return safeCall(() async {
+      final response = await datasource.signUp(user);
+
+      return Success(mapper.toEntity(response));
+    });
+  }
 }

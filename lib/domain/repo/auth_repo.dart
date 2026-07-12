@@ -6,4 +6,6 @@ abstract class AuthRepo {
   Future<ApiResults<UserEntity>> login(
       UserEntity login,
       );
+
+  Future<ApiResults<UserEntity>> signUp(UserEntity user);
 }

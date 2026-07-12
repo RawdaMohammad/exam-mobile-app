@@ -14,7 +14,6 @@ class AuthMapper {
       password: response.user?.password ?? "",
       rePassword: response.user?.rePassword ?? "",
       phone: response.user?.phone ?? "",
-      isVerified: response.user?.isVerified ?? false,
     );
   }
 }
