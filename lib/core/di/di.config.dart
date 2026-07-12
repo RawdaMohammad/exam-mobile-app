@@ -59,8 +59,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i55.AuthDatasourceImpl(gh<_i146.ExamApiClient>()),
     );
     gh.lazySingleton<_i716.AuthRepo>(
-      () =>
-          _i0.AuthRepoImpl(gh<_i534.AuthDatasource>(), gh<_i807.AuthMapper>()),
+      () => _i0.AuthRepoImpl(
+        gh<_i534.AuthDatasource>(),
+        gh<_i807.AuthMapper>(),
+        gh<_i460.SharedPreferences>(),
+      ),
     );
     gh.lazySingleton<_i461.LoginUseCase>(
       () => _i461.LoginUseCase(gh<_i716.AuthRepo>()),
