@@ -6,33 +6,56 @@ UserResponse userResponseFromJson(String str) =>
 String userResponseToJson(UserResponse data) => json.encode(data.toJson());
 
 class UserResponse {
+  String? message;
+  String? token;
+  User? user;
+
+  UserResponse({this.message, this.token, this.user});
+
+  factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
+    message: json["message"],
+    token: json["token"],
+    user: User.fromJson(json["user"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "token": token,
+    "user": user?.toJson(),
+  };
+}
+
+class User {
   String? username;
   String? firstName;
   String? lastName;
   String? email;
+  String? password;
+  String? rePassword;
   String? phone;
-  String? role;
   bool? isVerified;
   String? id;
 
-  UserResponse({
+  User({
     this.username,
     this.firstName,
     this.lastName,
     this.email,
+    this.password,
+    this.rePassword,
     this.phone,
-    this.role,
     this.isVerified,
     this.id,
   });
 
-  factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
+  factory User.fromJson(Map<String, dynamic> json) => User(
     username: json["username"],
     firstName: json["firstName"],
     lastName: json["lastName"],
     email: json["email"],
+    password: json["password"],
+    rePassword: json["rePassword"],
     phone: json["phone"],
-    role: json["role"],
     isVerified: json["isVerified"],
     id: json["_id"],
   );
@@ -42,8 +65,9 @@ class UserResponse {
     "firstName": firstName,
     "lastName": lastName,
     "email": email,
+    "password":password,
+    "rePassword":rePassword,
     "phone": phone,
-    "role": role,
     "isVerified": isVerified,
     "_id": id,
   };
