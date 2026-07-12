@@ -4,7 +4,7 @@ import 'package:exam_mobile_app/core/utils/password_validator.dart';
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
 import 'package:exam_mobile_app/core/widgets/custom_password_rule.dart';
-import 'package:exam_mobile_app/presentation/login_view.dart';
+import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

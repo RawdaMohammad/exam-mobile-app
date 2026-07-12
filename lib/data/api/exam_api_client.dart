@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:exam_mobile_app/core/network/api_constant.dart';
 import 'package:exam_mobile_app/data/models/user_response.dart';
+import 'package:exam_mobile_app/domain/entities/user_entity.dart';
 
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -15,4 +16,9 @@ abstract class ExamApiClient {
   @POST("/api/v1/auth/signin")
   Future<UserResponse> login(
     @Body() Map<String,dynamic> body,
-  );}
+  );
+
+  @POST("/api/v1/auth/signup")
+  Future<UserResponse> signUp( @Body() UserEntity user,);
+
+}

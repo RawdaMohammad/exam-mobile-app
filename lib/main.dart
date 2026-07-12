@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/app_config_provider.dart';
 import 'package:exam_mobile_app/core/di/di.dart';
-import 'package:exam_mobile_app/presentation/sign_up_view.dart';
+import 'package:exam_mobile_app/presentation/signup/sign_up_view.dart';
 import 'package:exam_mobile_app/presentation/forget_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
