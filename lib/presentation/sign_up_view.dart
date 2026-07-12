@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:exam_mobile_app/core/di/di.dart';
 import 'package:exam_mobile_app/core/utils/signup_validators.dart';
 import 'package:exam_mobile_app/core/utils/password_validator.dart';
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
 import 'package:exam_mobile_app/core/widgets/custom_password_rule.dart';
-import 'package:exam_mobile_app/presentation/login_view.dart';
+import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
+import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -247,15 +250,20 @@ class _SignUpViewState extends State<SignUpView> {
                         TextSpan(text: tr("signup.alreadyHaveAccount")),
                         TextSpan(
                           text: tr("signup.loginLine"),
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary,
-                          decoration: TextDecoration.underline,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                decoration: TextDecoration.underline,
+                              ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => const LoginView(),
+                                  builder: (_) => BlocProvider(
+                                    create: (_) => getIt<LoginCubit>(),
+                                    child: const LoginView(),
+                                  ),
                                 ),
                               );
                             },

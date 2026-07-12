@@ -2,10 +2,22 @@
     
   "errors": {
     "connectionTimeout": "Connection timed out. Please try again.",
+    "sendTimeout": "Sending request took too long.",
+    "receiveTimeout": "Receiving data took too long.",
     "noInternet": "No internet connection. Please check your network.",
+    "badCertificate": "Unable to establish a secure connection.",
+    "badRequest": "Bad request.",
     "unauthorized": "Your session has expired. Please log in again.",
-    "unknown": "Something went wrong."
+    "forbidden": "You don't have permission to perform this action.",
+    "notFound": "Requested resource was not found.",
+    "conflict": "A conflict occurred.",
+    "validation": "Some entered information is invalid.",
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "server": "Internal server error.",
+    "serviceUnavailable": "Service is temporarily unavailable.",
+    "unknown": "An unexpected error occurred."
   },
+
   "passwordAppBar": "Password",
   "forgetPassword": {
     "title": "Forget Password",
