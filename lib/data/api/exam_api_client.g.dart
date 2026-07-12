@@ -50,11 +50,12 @@ class _ExamApiClient implements ExamApiClient {
   }
 
   @override
-  Future<UserResponse> signUp(UserEntity user) async {
+  Future<UserResponse> signUp(SignUpRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = user;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     final _options = _setStreamType<UserResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

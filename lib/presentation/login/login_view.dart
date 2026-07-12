@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/base/resources.dart';
+import 'package:exam_mobile_app/core/di/di.dart' show getIt;
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
 import 'package:exam_mobile_app/presentation/forget_password_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_state.dart';
-import 'package:exam_mobile_app/presentation/sign_up_view.dart';
+import 'package:exam_mobile_app/presentation/signup/cubit/sign_up_cubit.dart';
+import 'package:exam_mobile_app/presentation/signup/sign_up_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,18 +20,14 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  bool hiddenPassword = false;
-  bool isFormValid = false;
-  bool rememberMe = false;
-
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   void checkFormValidity() {
-    setState(() {
-      isFormValid = _formKey.currentState?.validate() ?? false;
-    });
+    context.read<LoginCubit>().updateFormValidity(
+      _formKey.currentState?.validate() ?? false,
+    );
   }
 
   @override
@@ -56,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => const SignUpView()),
+            MaterialPageRoute(builder: (_) => const ForgetPasswordView()),
           );
         }
       },
@@ -100,18 +98,18 @@ class _LoginViewState extends State<LoginView> {
                       SizedBox(height: 20),
                       AppTextFormField(
                         controller: passwordController,
-                        obscureText: hiddenPassword,
+                        obscureText: state.obscurePassword,
                         labelText: tr("login.password"),
                         hintText: tr("login.enterPassword"),
                         onChanged: (_) => checkFormValidity(),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            setState(() {
-                              hiddenPassword = !hiddenPassword;
-                            });
+                            context
+                                .read<LoginCubit>()
+                                .togglePasswordVisibility();
                           },
                           icon: Icon(
-                            hiddenPassword
+                            state.obscurePassword
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                             size: 18,
@@ -127,11 +125,11 @@ class _LoginViewState extends State<LoginView> {
                       Row(
                         children: [
                           Checkbox(
-                            value: rememberMe,
+                            value: state.rememberMe,
                             onChanged: (value) {
-                              setState(() {
-                                rememberMe = value ?? false;
-                              });
+                              context.read<LoginCubit>().updateRememberMe(
+                                value ?? false,
+                              );
                             },
                           ),
                           Text(
@@ -166,7 +164,8 @@ class _LoginViewState extends State<LoginView> {
                       SizedBox(height: 70),
                       CustomButton(
                         isNotDisabled:
-                            isFormValid && state.login.status != Status.loading,
+                            state.isFormValid &&
+                            state.login.status != Status.loading,
                         buttonLabel: 'Login',
                         onPressedAction: () {
                           if (!_formKey.currentState!.validate()) return;
@@ -197,7 +196,10 @@ class _LoginViewState extends State<LoginView> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => const SignUpView(),
+                                      builder: (_) => BlocProvider(
+                                        create: (_) => getIt<SignUpCubit>(),
+                                        child: const SignUpView(),
+                                      ),
                                     ),
                                   );
                                 },

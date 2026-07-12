@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/app_config_provider.dart';
 import 'package:exam_mobile_app/core/di/di.dart';
+import 'package:exam_mobile_app/presentation/signup/cubit/sign_up_cubit.dart';
 import 'package:exam_mobile_app/presentation/signup/sign_up_view.dart';
-import 'package:exam_mobile_app/presentation/forget_password_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
@@ -15,15 +16,12 @@ void main() async {
   await getIt<AppConfigProvider>().setDefaultTheme();
   runApp(
     EasyLocalization(
-      supportedLocales: const [
-        Locale("en", "US"),
-        Locale("ar", "EG"),
-      ],
+      supportedLocales: const [Locale("en", "US"), Locale("ar", "EG")],
       path: "assets/lang",
       fallbackLocale: const Locale("en", "US"),
       startLocale: getIt<AppConfigProvider>().getCurrentLocale(),
       child: const MyApp(),
-    )
+    ),
   );
 }
 
@@ -44,11 +42,13 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             title: 'Exam App',
             theme: getIt<AppTheme>().themeData,
-            home: const SignUpView(),
+            home: BlocProvider(
+              create: (_) => getIt<SignUpCubit>(),
+              child: const SignUpView(),
+            ),
           ),
         );
-      }
+      },
     );
   }
 }
-

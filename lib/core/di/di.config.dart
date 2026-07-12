@@ -21,7 +21,9 @@ import '../../data/mapper/auth_mapper.dart' as _i807;
 import '../../data/repo/auth_repo_impl.dart' as _i0;
 import '../../domain/repo/auth_repo.dart' as _i716;
 import '../../domain/use_case/login_use_case.dart' as _i461;
+import '../../domain/use_case/signup_use_case.dart' as _i363;
 import '../../presentation/login/cubit/login_cubit.dart' as _i101;
+import '../../presentation/signup/cubit/sign_up_cubit.dart' as _i843;
 import '../app_config_provider.dart' as _i451;
 import '../network/auth_interceptor.dart' as _i908;
 import '../theme/app_colors.dart' as _i57;
@@ -68,8 +70,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i461.LoginUseCase>(
       () => _i461.LoginUseCase(gh<_i716.AuthRepo>()),
     );
+    gh.lazySingleton<_i363.SignUseCase>(
+      () => _i363.SignUseCase(gh<_i716.AuthRepo>()),
+    );
     gh.factory<_i101.LoginCubit>(
       () => _i101.LoginCubit(gh<_i461.LoginUseCase>()),
+    );
+    gh.factory<_i843.SignUpCubit>(
+      () => _i843.SignUpCubit(gh<_i363.SignUseCase>()),
     );
     return this;
   }

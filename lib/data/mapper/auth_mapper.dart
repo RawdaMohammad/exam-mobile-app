@@ -11,12 +11,7 @@ class AuthMapper {
       firstName: response.user?.firstName ?? "",
       lastName: response.user?.lastName ?? "",
       email: response.user?.email ?? "",
-      password: response.user?.password ?? "",
-      rePassword: response.user?.rePassword ?? "",
       phone: response.user?.phone ?? "",
     );
   }
 }
-
-
-

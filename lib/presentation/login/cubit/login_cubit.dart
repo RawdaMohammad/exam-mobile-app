@@ -34,4 +34,16 @@ class LoginCubit extends Cubit<LoginState> {
         );
     }
   }
+
+  void togglePasswordVisibility() {
+    emit(state.copyWith(obscurePassword: !state.obscurePassword));
+  }
+
+  void updateRememberMe(bool value) {
+    emit(state.copyWith(rememberMe: value));
+  }
+
+  void updateFormValidity(bool isValid) {
+    emit(state.copyWith(isFormValid: isValid));
+  }
 }
