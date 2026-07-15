@@ -67,14 +67,17 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i460.SharedPreferences>(),
       ),
     );
-    gh.lazySingleton<_i461.LoginUseCase>(
+    gh.factory<_i461.LoginUseCase>(
       () => _i461.LoginUseCase(gh<_i716.AuthRepo>()),
     );
-    gh.lazySingleton<_i363.SignUseCase>(
+    gh.factory<_i363.SignUseCase>(
       () => _i363.SignUseCase(gh<_i716.AuthRepo>()),
     );
     gh.factory<_i101.LoginCubit>(
-      () => _i101.LoginCubit(gh<_i461.LoginUseCase>()),
+      () => _i101.LoginCubit(
+        gh<_i461.LoginUseCase>(),
+        gh<_i460.SharedPreferences>(),
+      ),
     );
     gh.factory<_i843.SignUpCubit>(
       () => _i843.SignUpCubit(gh<_i363.SignUseCase>()),

@@ -43,14 +43,16 @@ class _LoginViewState extends State<LoginView> {
       listener: (context, state) {
         if (state.login.status == Status.error) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.login.message ?? "Login failed")),
+            SnackBar(
+              content: Text(state.login.message ?? tr("login.loginFailed")),
+            ),
           );
         }
 
         if (state.login.status == Status.success) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(const SnackBar(content: Text("Login successful")));
+          ).showSnackBar(SnackBar(content: Text(tr("login.loginSuccessful"))));
 
           Navigator.pushReplacement(
             context,
@@ -166,7 +168,7 @@ class _LoginViewState extends State<LoginView> {
                         isNotDisabled:
                             state.isFormValid &&
                             state.login.status != Status.loading,
-                        buttonLabel: 'Login',
+                        buttonLabel: tr("login.loginButton"),
                         onPressedAction: () {
                           if (!_formKey.currentState!.validate()) return;
 

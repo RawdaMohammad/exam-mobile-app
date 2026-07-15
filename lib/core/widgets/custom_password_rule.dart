@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PasswordRule extends StatelessWidget {
-  const PasswordRule({
-    super.key,
-    required this.title,
-    required this.valid,
-  });
+  const PasswordRule({super.key, required this.title, required this.valid});
+
 
   final String title;
   final bool valid;
@@ -18,15 +15,17 @@ class PasswordRule extends StatelessWidget {
         children: [
           Icon(
             valid ? Icons.check_circle : Icons.cancel,
-            color: valid ? Colors.green : Colors.red,
-            size: 16,
+            color: valid
+                ? Colors.green
+                : Theme.of(context).colorScheme.error,
           ),
           const SizedBox(width: 6),
           Text(
             title,
-            style: TextStyle(
-              color: valid ? Colors.green : Colors.red,
-              fontSize: 11,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              color: valid
+                  ? Colors.green
+                  : Theme.of(context).colorScheme.error,
             ),
           ),
         ],

@@ -5,8 +5,9 @@ import 'package:exam_mobile_app/domain/entities/user_entity.dart';
 abstract class AuthRepo {
 
   Future<ApiResults<UserEntity>> login(
-      UserEntity login,
+      UserEntity login  ,bool rememberMe,
       );
 
   Future<ApiResults<UserEntity>> signUp(SignUpRequest user);
+  
 }

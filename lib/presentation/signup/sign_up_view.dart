@@ -60,7 +60,7 @@ class _SignUpViewState extends State<SignUpView> {
       listener: (context, state) {
         if (state.signUp.status == Status.success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Account created successfully")),
+            SnackBar(content: Text(tr("signup.accountCreatedSuccessfully"))),
           );
 
           Navigator.pushReplacement(
@@ -77,7 +77,9 @@ class _SignUpViewState extends State<SignUpView> {
         if (state.signUp.status == Status.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.signUp.message ?? "Something went wrong"),
+              content: Text(
+                state.signUp.message ?? tr("signup.somethingWentWrong"),
+              ),
             ),
           );
         }
@@ -214,27 +216,27 @@ class _SignUpViewState extends State<SignUpView> {
                         const SizedBox(height: 10),
 
                         PasswordRule(
-                          title: "At least 8 characters",
+                          title: tr("signup.passwordRules.minLength"),
                           valid: state.hasMinLength,
                         ),
 
                         PasswordRule(
-                          title: "Contains an uppercase letter",
+                          title: tr("signup.passwordRules.upperCase"),
                           valid: state.hasUpperCase,
                         ),
 
                         PasswordRule(
-                          title: "Contains a lowercase letter",
+                          title: tr("signup.passwordRules.lowerCase"),
                           valid: state.hasLowerCase,
                         ),
 
                         PasswordRule(
-                          title: "Contains a number",
+                          title: tr("signup.passwordRules.number"),
                           valid: state.hasNumber,
                         ),
 
                         PasswordRule(
-                          title: "Contains a special character",
+                          title: tr("signup.passwordRules.specialCharacter"),
                           valid: state.hasSpecialCharacter,
                         ),
                       ],

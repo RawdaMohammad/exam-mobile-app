@@ -10,10 +10,12 @@
     "unauthorized": "Your session has expired. Please log in again.",
     "forbidden": "You don't have permission to perform this action.",
     "notFound": "Requested resource was not found.",
-    "conflict": "A conflict occurred.",
+    "conflict": "username already exist.",
     "validation": "Some entered information is invalid.",
     "tooManyRequests": "Too many requests. Please try again later.",
     "server": "Internal server error.",
+    "badGateway": "Bad gateway.",
+    "gatewayTimeout": "Gateway timeout.",
     "serviceUnavailable": "Service is temporarily unavailable.",
     "unknown": "An unexpected error occurred."
   },
@@ -55,7 +57,6 @@
     "success": "Verification successful"
   },
 
-  "login_app_bar" : "Login",
   
   "signup": {
     "SignUpAppBar": "Sign up",
@@ -94,7 +95,18 @@
     "signupButton": "Sign Up",
 
     "alreadyHaveAccount": "Already have an account?",
-    "loginLine": "Login"
+    "loginLine": "Login",
+
+    "accountCreatedSuccessfully": "Account created successfully",
+    "somethingWentWrong": "Something went wrong",
+
+    "passwordRules": {
+      "minLength": "At least 8 characters",
+      "upperCase": "Contains an uppercase letter",
+      "lowerCase": "Contains a lowercase letter",
+      "number": "Contains a number",
+      "specialCharacter": "Contains a special character"
+    }
   },
 
   "login": {
@@ -114,13 +126,11 @@
     "dontHaveAccount": "Don't have an account? ",
     "signUpLine": "Sign Up",
     "rememberMe": "Remember me",
-    "forgetPassword": "Forget password?"
-  },
-  "passwordRules": {
-    "minLength": "At least 8 characters",
-    "upperCase": "Contains an uppercase letter",
-    "lowerCase": "Contains a lowercase letter",
-    "number": "Contains a number",
-    "special": "Contains a special character"
+    "forgetPassword": "Forget password?",
+
+    "loginSuccessful": "Login successful",
+    "loginFailed": "Login failed"
+
   }
+
 }

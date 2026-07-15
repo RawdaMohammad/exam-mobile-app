@@ -17,6 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     final result = await _loginUseCase.call(
       UserEntity(email: email, password: password),
+      state.rememberMe,
     );
 
     switch (result) {
@@ -39,7 +40,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(obscurePassword: !state.obscurePassword));
   }
 
-  void updateRememberMe(bool value) {
+  void updateRememberMe(bool value) async{
     emit(state.copyWith(rememberMe: value));
   }
 

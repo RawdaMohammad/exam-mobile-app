@@ -5,7 +5,7 @@ import '../../core/network/api_results.dart';
 import '../entities/user_entity.dart';
 import '../repo/auth_repo.dart';
 
-@lazySingleton
+@injectable
 class SignUseCase {
   final AuthRepo _repository;
 

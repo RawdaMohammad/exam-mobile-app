@@ -6,6 +6,7 @@ import 'package:exam_mobile_app/data/mapper/auth_mapper.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
 import 'package:exam_mobile_app/domain/entities/user_entity.dart';
 import 'package:exam_mobile_app/domain/repo/auth_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,10 +19,18 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(this.datasource, this.mapper, this.sharedPreferences);
 
   @override
-  Future<ApiResults<UserEntity>> login(UserEntity login) {
+  Future<ApiResults<UserEntity>> login(UserEntity login, bool rememberMe) {
     return safeCall(() async {
       final response = await datasource.login(login.email, login.password);
-      await sharedPreferences.setString(tokenKey, response.token ?? "");
+      await sharedPreferences.setBool(rememberMeKey, rememberMe);
+
+      if (rememberMe) {
+        await sharedPreferences.setString(tokenKey, response.token ?? "");
+      } else {
+        await sharedPreferences.setString(tokenKey, "");
+        debugPrint("Token: ${response.token}");
+        
+      }
       return Success(mapper.toEntity(response));
     });
   }
@@ -30,7 +39,6 @@ class AuthRepoImpl implements AuthRepo {
   Future<ApiResults<UserEntity>> signUp(SignUpRequest user) {
     return safeCall(() async {
       final response = await datasource.signUp(user);
-      await sharedPreferences.setString(tokenKey, response.token ?? "");
       return Success(mapper.toEntity(response));
     });
   }
