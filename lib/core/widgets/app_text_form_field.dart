@@ -38,7 +38,6 @@ class AppTextFormField extends StatelessWidget {
         labelText: labelText,
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.bodyMedium,
-
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       ),

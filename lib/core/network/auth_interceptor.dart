@@ -19,10 +19,6 @@ class AuthInterceptor implements Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    // if (err.response?.statusCode == 401) {
-    //   await sharedPreferences.remove(tokenKey);
-    //   await sharedPreferences.remove(rememberMeKey);
-    // }
     return handler.next(err);
   }
 

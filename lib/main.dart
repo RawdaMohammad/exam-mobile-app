@@ -14,12 +14,9 @@ import 'core/theme/app_theme.dart';
 
 Future<Widget> getStartScreen() async {
   final prefs = getIt<SharedPreferences>();
-
-  final token = prefs.getString(tokenKey);
   final rememberMe = prefs.getBool(rememberMeKey) ?? false;
 
-
-  if (rememberMe && token != null && token.isNotEmpty ) {
+  if (rememberMe) {
     return const ForgetPasswordView(); // Replace with home screen
   } else {
     return BlocProvider(

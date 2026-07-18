@@ -14,11 +14,8 @@ abstract class ExamApiClient {
   factory ExamApiClient(Dio dio) = _ExamApiClient;
 
   @POST("/api/v1/auth/signin")
-  Future<UserResponse> login(
-    @Body() Map<String,dynamic> body,
-  );
+  Future<UserResponse> login(@Body() Map<String, dynamic> body);
 
   @POST("/api/v1/auth/signup")
-  Future<UserResponse> signUp( @Body() SignUpRequest request,);
-
+  Future<UserResponse> signUp(@Body() SignUpRequest request);
 }

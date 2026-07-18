@@ -66,5 +66,3 @@ class IgnoreAppError extends AppError {
 class BadResponseAppError extends AppError{
   BadResponseAppError(String message): super(null, message);
 }
-
-

@@ -1,14 +1,16 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:exam_mobile_app/core/base/resources.dart';
 import 'package:exam_mobile_app/core/di/di.dart';
 import 'package:exam_mobile_app/core/utils/signup_validators.dart';
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
-import 'package:exam_mobile_app/core/widgets/custom_password_rule.dart';
+import 'package:exam_mobile_app/core/widgets/password_validation_support_text.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:exam_mobile_app/presentation/signup/cubit/sign_up_cubit.dart';
+import 'package:exam_mobile_app/presentation/signup/cubit/sign_up_events.dart';
 import 'package:exam_mobile_app/presentation/signup/cubit/sign_up_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,8 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  late SignUpCubit signUpCubit;
+  late final StreamSubscription<SignUpUIEvents> _subscription;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
@@ -40,6 +44,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   void dispose() {
+    _subscription.cancel();
     for (final controller in [
       userNameController,
       firstNameController,
@@ -55,35 +60,38 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      signUpCubit = context.read<SignUpCubit>();
+
+      _subscription = signUpCubit.uiStream.listen((event) {
+        switch (event) {
+          case SignupShowMessage():
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(event.message)));
+
+            if (event.message == tr("signup.accountCreatedSuccessfully")) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => BlocProvider(
+                    create: (_) => getIt<LoginCubit>(),
+                    child: const LoginView(),
+                  ),
+                ),
+              );
+            }
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignUpCubit, SignUpState>(
-      listener: (context, state) {
-        if (state.signUp.status == Status.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(tr("signup.accountCreatedSuccessfully"))),
-          );
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) => BlocProvider(
-                create: (_) => getIt<LoginCubit>(),
-                child: const LoginView(),
-              ),
-            ),
-          );
-        }
-
-        if (state.signUp.status == Status.error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.signUp.message ?? tr("signup.somethingWentWrong"),
-              ),
-            ),
-          );
-        }
-      },
+    return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -215,27 +223,27 @@ class _SignUpViewState extends State<SignUpView> {
                       if (state.showPasswordRules) ...[
                         const SizedBox(height: 10),
 
-                        PasswordRule(
+                        PasswordValidationSupportText(
                           title: tr("signup.passwordRules.minLength"),
                           valid: state.hasMinLength,
                         ),
 
-                        PasswordRule(
+                        PasswordValidationSupportText(
                           title: tr("signup.passwordRules.upperCase"),
                           valid: state.hasUpperCase,
                         ),
 
-                        PasswordRule(
+                        PasswordValidationSupportText(
                           title: tr("signup.passwordRules.lowerCase"),
                           valid: state.hasLowerCase,
                         ),
 
-                        PasswordRule(
+                        PasswordValidationSupportText(
                           title: tr("signup.passwordRules.number"),
                           valid: state.hasNumber,
                         ),
 
-                        PasswordRule(
+                        PasswordValidationSupportText(
                           title: tr("signup.passwordRules.specialCharacter"),
                           valid: state.hasSpecialCharacter,
                         ),

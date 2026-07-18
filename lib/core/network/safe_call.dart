@@ -54,6 +54,16 @@ AppError _handleBadResponse(DioException exception) {
       return BadRequestAppError(serverMessage ?? tr("errors.badRequest"));
 
     case 401:
+      final message = serverMessage?.toLowerCase() ?? "";
+
+      if (serverMessage != null &&
+          serverMessage.toLowerCase().contains("incorrect")) {
+        return BadCredentialsAppError(null, serverMessage);
+      }
+      if (message.contains("must be a valid email") ||
+          message.contains("fails to match the required pattern")) {
+        return ValidationAppError(tr("errors.validation"));
+      }
       return ForceLoginAppError();
 
     case 403:

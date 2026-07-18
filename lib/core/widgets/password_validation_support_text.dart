@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PasswordRule extends StatelessWidget {
-  const PasswordRule({super.key, required this.title, required this.valid});
+class  PasswordValidationSupportText extends StatelessWidget {
+  const PasswordValidationSupportText({super.key, required this.title, required this.valid});
 
 
   final String title;

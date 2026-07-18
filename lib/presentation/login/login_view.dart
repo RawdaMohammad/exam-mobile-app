@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/base/resources.dart';
 import 'package:exam_mobile_app/core/di/di.dart' show getIt;
@@ -5,6 +6,7 @@ import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
 import 'package:exam_mobile_app/presentation/forget_password_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
+import 'package:exam_mobile_app/presentation/login/cubit/login_events.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_state.dart';
 import 'package:exam_mobile_app/presentation/signup/cubit/sign_up_cubit.dart';
 import 'package:exam_mobile_app/presentation/signup/sign_up_view.dart';
@@ -20,46 +22,54 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  late LoginCubit loginCubit;
+  late final StreamSubscription<LoginUIEvents> _subscription;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   void checkFormValidity() {
-    context.read<LoginCubit>().updateFormValidity(
-      _formKey.currentState?.validate() ?? false,
+    context.read<LoginCubit>().doIntent(
+      FormValidityChanged(_formKey.currentState?.validate() ?? false),
     );
   }
 
   @override
   void dispose() {
+    _subscription.cancel();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loginCubit = context.read<LoginCubit>();
+
+      _subscription = loginCubit.uiStream.listen((event) {
+        switch (event) {
+          case ShowMessage():
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(event.message)));
+
+            if (event.message == tr("login.loginSuccessful")) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const ForgetPasswordView()),
+              );
+            }
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {
-        if (state.login.status == Status.error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.login.message ?? tr("login.loginFailed")),
-            ),
-          );
-        }
-
-        if (state.login.status == Status.success) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(tr("login.loginSuccessful"))));
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const ForgetPasswordView()),
-          );
-        }
-      },
+    return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -106,9 +116,9 @@ class _LoginViewState extends State<LoginView> {
                         onChanged: (_) => checkFormValidity(),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            context
-                                .read<LoginCubit>()
-                                .togglePasswordVisibility();
+                            context.read<LoginCubit>().doIntent(
+                              TogglePasswordVisibility(),
+                            );
                           },
                           icon: Icon(
                             state.obscurePassword
@@ -129,8 +139,8 @@ class _LoginViewState extends State<LoginView> {
                           Checkbox(
                             value: state.rememberMe,
                             onChanged: (value) {
-                              context.read<LoginCubit>().updateRememberMe(
-                                value ?? false,
+                              context.read<LoginCubit>().doIntent(
+                                RememberMeChanged(value ?? false),
                               );
                             },
                           ),
@@ -172,9 +182,11 @@ class _LoginViewState extends State<LoginView> {
                         onPressedAction: () {
                           if (!_formKey.currentState!.validate()) return;
 
-                          context.read<LoginCubit>().login(
-                            email: emailController.text.trim(),
-                            password: passwordController.text,
+                          context.read<LoginCubit>().doIntent(
+                            LoginSubmitted(
+                              email: emailController.text.trim(),
+                              password: passwordController.text,
+                            ),
                           );
                         },
                       ),
