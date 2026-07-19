@@ -35,10 +35,12 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
 
   void checkFormValidity() {
-    context.read<SignUpCubit>().updateFormValidity(
-      _formKey.currentState?.validate() ?? false,
+    context.read<SignUpCubit>().doIntent(
+      FormValidityChanged(_formKey.currentState?.validate() ?? false),
     );
   }
 
@@ -164,25 +166,25 @@ class _SignUpViewState extends State<SignUpView> {
                           Expanded(
                             child: AppTextFormField(
                               controller: passwordController,
-                              obscureText: state.obscurePassword,
+                              obscureText: obscurePassword,
                               labelText: tr("signup.password"),
                               hintText: tr("signup.enterPassword"),
                               onChanged: (value) {
-                                context.read<SignUpCubit>().validatePassword(
-                                  value,
+                                context.read<SignUpCubit>().doIntent(
+                                  PasswordChanged(value),
                                 );
                                 checkFormValidity();
                               },
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  context
-                                      .read<SignUpCubit>()
-                                      .togglePasswordVisibility();
+                                  setState(() {
+                                    obscurePassword = !obscurePassword;
+                                  });
                                 },
                                 icon: Icon(
-                                  state.obscurePassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                  obscurePassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                   size: 18,
                                 ),
                               ),
@@ -193,20 +195,21 @@ class _SignUpViewState extends State<SignUpView> {
                           Expanded(
                             child: AppTextFormField(
                               controller: confirmPasswordController,
-                              obscureText: state.obscureConfirmPassword,
+                              obscureText: obscureConfirmPassword,
                               labelText: tr("signup.confirmPassword"),
                               hintText: tr("signup.enterConfirmPassword"),
                               onChanged: (_) => checkFormValidity(),
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  context
-                                      .read<SignUpCubit>()
-                                      .toggleConfirmPasswordVisibility();
+                                  setState(() {
+                                    obscureConfirmPassword =
+                                        !obscureConfirmPassword;
+                                  });
                                 },
                                 icon: Icon(
-                                  state.obscureConfirmPassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                  obscureConfirmPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                   size: 18,
                                 ),
                               ),
@@ -264,15 +267,18 @@ class _SignUpViewState extends State<SignUpView> {
                         onPressedAction: () {
                           if (!_formKey.currentState!.validate()) return;
 
-                          context.read<SignUpCubit>().signUp(
-                            SignUpRequest(
-                              username: userNameController.text.trim(),
-                              firstName: firstNameController.text.trim(),
-                              lastName: lastNameController.text.trim(),
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                              rePassword: confirmPasswordController.text.trim(),
-                              phone: phoneController.text.trim(),
+                          context.read<SignUpCubit>().doIntent(
+                            SignUpSubmitted(
+                              SignUpRequest(
+                                username: userNameController.text.trim(),
+                                firstName: firstNameController.text.trim(),
+                                lastName: lastNameController.text.trim(),
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                                rePassword: confirmPasswordController.text
+                                    .trim(),
+                                phone: phoneController.text.trim(),
+                              ),
                             ),
                           );
                         },

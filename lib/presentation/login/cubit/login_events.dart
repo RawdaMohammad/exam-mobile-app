@@ -6,8 +6,6 @@ class LoginSubmitted extends LoginEvents {
   LoginSubmitted({required this.email, required this.password});
 }
 
-class TogglePasswordVisibility extends LoginEvents {}
-
 class RememberMeChanged extends LoginEvents {
   final bool value;
   RememberMeChanged(this.value);

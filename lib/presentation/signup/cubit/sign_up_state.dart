@@ -4,8 +4,6 @@ import 'package:exam_mobile_app/domain/entities/user_entity.dart';
 class SignUpState {
   final Resources<UserEntity> signUp;
 
-  final bool obscurePassword;
-  final bool obscureConfirmPassword;
   final bool isFormValid;
   final bool showPasswordRules;
   final bool hasMinLength;
@@ -16,8 +14,6 @@ class SignUpState {
 
   const SignUpState({
     required this.signUp,
-    required this.obscurePassword,
-    required this.obscureConfirmPassword,
     required this.isFormValid,
     required this.showPasswordRules,
     required this.hasMinLength,
@@ -30,8 +26,6 @@ class SignUpState {
   factory SignUpState.initial() {
     return SignUpState(
       signUp: Resources.init(),
-      obscurePassword: true,
-      obscureConfirmPassword: true,
       isFormValid: false,
       showPasswordRules: false,
       hasMinLength: false,
@@ -44,8 +38,6 @@ class SignUpState {
 
   SignUpState copyWith({
     Resources<UserEntity>? signUp,
-    bool? obscurePassword,
-    bool? obscureConfirmPassword,
     bool? isFormValid,
     bool? showPasswordRules,
     bool? hasMinLength,
@@ -56,9 +48,6 @@ class SignUpState {
   }) {
     return SignUpState(
       signUp: signUp ?? this.signUp,
-      obscurePassword: obscurePassword ?? this.obscurePassword,
-      obscureConfirmPassword:
-          obscureConfirmPassword ?? this.obscureConfirmPassword,
       isFormValid: isFormValid ?? this.isFormValid,
       showPasswordRules: showPasswordRules ?? this.showPasswordRules,
       hasMinLength: hasMinLength ?? this.hasMinLength,

@@ -25,8 +25,6 @@ class LoginCubit extends Cubit<LoginState> {
     switch (event) {
       case LoginSubmitted():
         await _login(event);
-      case TogglePasswordVisibility():
-        emit(state.copyWith(obscurePassword: !state.obscurePassword));
 
       case RememberMeChanged():
         emit(state.copyWith(rememberMe: event.value));

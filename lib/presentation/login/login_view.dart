@@ -27,6 +27,7 @@ class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool obscurePassword = true;
 
   void checkFormValidity() {
     context.read<LoginCubit>().doIntent(
@@ -110,20 +111,20 @@ class _LoginViewState extends State<LoginView> {
                       SizedBox(height: 20),
                       AppTextFormField(
                         controller: passwordController,
-                        obscureText: state.obscurePassword,
+                        obscureText: obscurePassword,
                         labelText: tr("login.password"),
                         hintText: tr("login.enterPassword"),
                         onChanged: (_) => checkFormValidity(),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            context.read<LoginCubit>().doIntent(
-                              TogglePasswordVisibility(),
-                            );
+                            setState(() {
+                              obscurePassword = !obscurePassword;
+                            });
                           },
                           icon: Icon(
-                            state.obscurePassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                            obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
                             size: 18,
                           ),
                         ),
