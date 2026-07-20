@@ -23,18 +23,17 @@ class SignUpState {
     required this.hasSpecialCharacter,
   });
 
-  factory SignUpState.initial() {
-    return SignUpState(
-      signUp: Resources.init(),
-      isFormValid: false,
-      showPasswordRules: false,
-      hasMinLength: false,
-      hasUpperCase: false,
-      hasLowerCase: false,
-      hasNumber: false,
-      hasSpecialCharacter: false,
-    );
-  }
+  SignUpState.initial()
+    : this(
+        signUp: Resources.init(),
+        isFormValid: false,
+        showPasswordRules: false,
+        hasMinLength: false,
+        hasUpperCase: false,
+        hasLowerCase: false,
+        hasNumber: false,
+        hasSpecialCharacter: false,
+      );
 
   SignUpState copyWith({
     Resources<UserEntity>? signUp,

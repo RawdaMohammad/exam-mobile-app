@@ -12,13 +12,8 @@ class LoginState {
     required this.isFormValid,
   });
 
-  factory LoginState.initial() {
-    return LoginState(
-      login: Resources.init(),
-      rememberMe: false,
-      isFormValid: false,
-    );
-  }
+  LoginState.initial()
+    : this(login: Resources.init(), rememberMe: false, isFormValid: false);
 
   LoginState copyWith({
     Resources<UserEntity>? login,
