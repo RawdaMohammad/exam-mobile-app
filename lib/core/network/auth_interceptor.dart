@@ -18,7 +18,7 @@ class AuthInterceptor implements Interceptor {
   };
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
     return handler.next(err);
   }
 

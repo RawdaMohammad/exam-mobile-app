@@ -2,10 +2,24 @@
     
   "errors": {
     "connectionTimeout": "Connection timed out. Please try again.",
+    "sendTimeout": "Sending request took too long.",
+    "receiveTimeout": "Receiving data took too long.",
     "noInternet": "No internet connection. Please check your network.",
+    "badCertificate": "Unable to establish a secure connection.",
+    "badRequest": "Bad request.",
     "unauthorized": "Your session has expired. Please log in again.",
-    "unknown": "Something went wrong."
+    "forbidden": "You don't have permission to perform this action.",
+    "notFound": "Requested resource was not found.",
+    "conflict": "username already exist.",
+    "validation": "Some entered information is invalid.",
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "server": "Internal server error.",
+    "badGateway": "Bad gateway.",
+    "gatewayTimeout": "Gateway timeout.",
+    "serviceUnavailable": "Service is temporarily unavailable.",
+    "unknown": "An unexpected error occurred."
   },
+
   "passwordAppBar": "Password",
   "forgetPassword": {
     "title": "Forget Password",
@@ -43,7 +57,6 @@
     "success": "Verification successful"
   },
 
-  "login_app_bar" : "Login",
   
   "signup": {
     "SignUpAppBar": "Sign up",
@@ -82,7 +95,18 @@
     "signupButton": "Sign Up",
 
     "alreadyHaveAccount": "Already have an account?",
-    "loginLine": "Login"
+    "loginLine": "Login",
+
+    "accountCreatedSuccessfully": "Account created successfully",
+    "somethingWentWrong": "Something went wrong",
+
+    "passwordRules": {
+      "minLength": "At least 8 characters",
+      "upperCase": "Contains an uppercase letter",
+      "lowerCase": "Contains a lowercase letter",
+      "number": "Contains a number",
+      "specialCharacter": "Contains a special character"
+    }
   },
 
   "login": {
@@ -102,13 +126,11 @@
     "dontHaveAccount": "Don't have an account? ",
     "signUpLine": "Sign Up",
     "rememberMe": "Remember me",
-    "forgetPassword": "Forget password?"
-  },
-  "passwordRules": {
-    "minLength": "At least 8 characters",
-    "upperCase": "Contains an uppercase letter",
-    "lowerCase": "Contains a lowercase letter",
-    "number": "Contains a number",
-    "special": "Contains a special character"
+    "forgetPassword": "Forget password?",
+
+    "loginSuccessful": "Login successful",
+    "loginFailed": "Login failed"
+
   }
+
 }
