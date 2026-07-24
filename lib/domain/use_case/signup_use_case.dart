@@ -6,10 +6,10 @@ import '../entities/user_entity.dart';
 import '../repo/auth_repo.dart';
 
 @injectable
-class SignUseCase {
+class SignUpUseCase {
   final AuthRepo _repository;
 
-  SignUseCase(this._repository);
+  SignUpUseCase(this._repository);
 
   Future<ApiResults<UserEntity>> call(SignUpRequest user) {
     return _repository.signUp(user);

@@ -9,9 +9,7 @@ class LoginUseCase {
 
   LoginUseCase(this._repository);
 
-  Future<ApiResults<UserEntity>> call(UserEntity login,  bool rememberMe,
-) {
-    return _repository.login(login,   rememberMe,
-);
+  Future<ApiResults<UserEntity>> call(UserEntity login,  bool rememberMe) {
+    return _repository.login(login, rememberMe);
   }
 }

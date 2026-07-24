@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/app_config_provider.dart';
 import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:exam_mobile_app/core/di/di.dart';
-import 'package:exam_mobile_app/presentation/forget_password_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/material.dart';

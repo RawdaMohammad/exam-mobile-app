@@ -1,7 +1,7 @@
 import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:exam_mobile_app/core/network/api_results.dart';
 import 'package:exam_mobile_app/core/network/safe_call.dart';
-import 'package:exam_mobile_app/data/datasource/contract/auth_datasource.dart';
+import 'package:exam_mobile_app/data/datasource/contract/auth_remote_datasource.dart';
 import 'package:exam_mobile_app/data/mapper/auth_mapper.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
 import 'package:exam_mobile_app/domain/entities/user_entity.dart';
@@ -10,18 +10,20 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-@LazySingleton(as: AuthRepo)
+import '../models/user_response.dart';
+
+@Injectable(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
-  final AuthDatasource datasource;
+  final AuthRemoteDatasource remoteDatasource;
   final AuthMapper mapper;
   final SharedPreferences sharedPreferences;
 
-  AuthRepoImpl(this.datasource, this.mapper, this.sharedPreferences);
+  AuthRepoImpl(this.remoteDatasource, this.mapper, this.sharedPreferences);
 
   @override
   Future<ApiResults<UserEntity>> login(UserEntity login, bool rememberMe) {
     return safeCall(() async {
-      final response = await datasource.login(login.email, login.password);
+      final response = await remoteDatasource.login(login.email, login.password);
       await sharedPreferences.setBool(rememberMeKey, rememberMe);
 
       if (rememberMe) {
@@ -29,7 +31,6 @@ class AuthRepoImpl implements AuthRepo {
       } else {
         await sharedPreferences.setString(tokenKey, "");
         debugPrint("Token: ${response.token}");
-        
       }
       return Success(mapper.toEntity(response));
     });
@@ -38,7 +39,40 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<ApiResults<UserEntity>> signUp(SignUpRequest user) {
     return safeCall(() async {
-      final response = await datasource.signUp(user);
+      final response = await remoteDatasource.signUp(user);
+      return Success(mapper.toEntity(response));
+    });
+  }
+
+  @override
+  Future<ApiResults<UserEntity>> forgotPassword(String? email) {
+    return safeCall(() async {
+      final response = UserResponse(
+        message: "Reset code sent successfully"
+      );
+      await Future.delayed(const Duration(seconds: 2));
+      return Success(mapper.toEntity(response));
+    });
+  }
+
+  @override
+  Future<ApiResults<UserEntity>> resetPassword(String? email, String? newPassword) {
+    return safeCall(() async {
+      final response = UserResponse(
+        message: "Password reset successfully"
+      );
+      await Future.delayed(const Duration(seconds: 2));
+      return Success(mapper.toEntity(response));
+    });
+  }
+
+  @override
+  Future<ApiResults<UserEntity>> verifyResetCode(String? resetCode) {
+    return safeCall(() async {
+      final response = UserResponse(
+        message: "Reset code verified successfully"
+      );
+      await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));
     });
   }

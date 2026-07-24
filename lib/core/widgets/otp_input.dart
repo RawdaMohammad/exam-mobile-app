@@ -37,18 +37,17 @@ class _OtpInputState extends State<OtpInput> {
   }
 
   void _onChanged(String value, int index) {
-    if (value.isNotEmpty) {
-      if (index < widget.otpNum - 1) {
-        _focusNodes[index + 1].requestFocus();
-      }
-    }
-
     final otp = _controllers.map((e) => e.text).join();
 
     if (otp.length == widget.otpNum) {
       widget.onCompleted(otp);
     }
 
+    if (value.isNotEmpty) {
+      if (index < widget.otpNum - 1) {
+        _focusNodes[index + 1].requestFocus();
+      }
+    }
     setState(() {});
   }
 
@@ -110,7 +109,6 @@ class _OtpInputState extends State<OtpInput> {
                   borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
                 ),
               ),
-
               onChanged: (value) => _onChanged(value, index),
             ),
           ),

@@ -14,11 +14,17 @@ abstract class ExamApiClient {
   factory ExamApiClient(Dio dio) = _ExamApiClient;
 
   @POST("/api/v1/auth/signin")
-  Future<UserResponse> login(
-    @Body() Map<String,dynamic> body,
-  );
+  Future<UserResponse> login(@Body() Map<String,dynamic> body);
 
   @POST("/api/v1/auth/signup")
-  Future<UserResponse> signUp( @Body() SignUpRequest request,);
+  Future<UserResponse> signUp(@Body() SignUpRequest request);
 
+  @POST("/api/v1/auth/forgotPassword")
+  Future<UserResponse> forgetPassword( @Body() Map<String,dynamic> body);
+
+  @POST("/api/v1/auth/verifyResetCode")
+  Future<UserResponse> verifyResetCode( @Body() Map<String,dynamic> body);
+
+  @PUT("/api/v1/auth/resetPassword")
+  Future<UserResponse> resetPassword( @Body() Map<String,dynamic> body);
 }

@@ -1,5 +1,4 @@
 {
-    
   "errors": {
     "connectionTimeout": "Connection timed out. Please try again.",
     "sendTimeout": "Sending request took too long.",
@@ -19,7 +18,6 @@
     "serviceUnavailable": "Service is temporarily unavailable.",
     "unknown": "An unexpected error occurred."
   },
-
   "passwordAppBar": "Password",
   "forgetPassword": {
     "title": "Forget Password",
@@ -56,8 +54,6 @@
     "codeExpired": "The verification code has expired",
     "success": "Verification successful"
   },
-
-  
   "signup": {
     "SignUpAppBar": "Sign up",
     "userName": "User name",
@@ -130,7 +126,5 @@
 
     "loginSuccessful": "Login successful",
     "loginFailed": "Login failed"
-
   }
-
 }

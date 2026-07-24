@@ -10,7 +10,7 @@ import 'sign_up_state.dart';
 
 @injectable
 class SignUpCubit extends Cubit<SignUpState> {
-  final SignUseCase _signUseCase;
+  final SignUpUseCase _signUseCase;
 
   SignUpCubit(this._signUseCase) : super(SignUpState.initial());
 
