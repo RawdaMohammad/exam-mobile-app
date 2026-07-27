@@ -7,55 +7,61 @@ class AppTheme {
   AppColors appColors;
   AppTheme(this.appColors);
 
-  late ThemeData themeData = ThemeData(
-    colorScheme: ColorScheme(
-        brightness: appColors.brightness,
-        primary: appColors.primaryColor,
-        onPrimary: appColors.backgroundColor,
-        secondary: appColors.secondaryColor,
-        onSecondary: appColors.backgroundColor,
-        error: appColors.errorColor,
-        onError: appColors.backgroundColor,
-        surface: appColors.backgroundColor,
-        onSurface: appColors.secondaryColor,
-        tertiary: appColors.darkGreyColor,
+  ThemeData get themeData => ThemeData(
+    scaffoldBackgroundColor: appColors.whiteColor,
+    appBarTheme: AppBarTheme(
+      backgroundColor: appColors.whiteColor,
+      surfaceTintColor: appColors.whiteColor,
+      elevation: 0,
     ),
-   textTheme: TextTheme(
+    colorScheme: ColorScheme(
+      brightness: appColors.brightness,
+      primary: appColors.primaryColor,
+      onPrimary: appColors.backgroundColor,
+      secondary: appColors.secondaryColor,
+      onSecondary: appColors.backgroundColor,
+      error: appColors.errorColor,
+      onError: appColors.backgroundColor,
+      surface: appColors.backgroundColor,
+      onSurface: appColors.secondaryColor,
+      tertiary: appColors.darkGreyColor,
+    ),
+    textTheme: TextTheme(
       bodySmall: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.normal,
-        color: appColors.secondaryColor
+        color: appColors.secondaryColor,
       ),
       bodyMedium: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
-          color: appColors.placeHolderColor
+        fontSize: 14,
+        fontWeight: FontWeight.normal,
+        color: appColors.placeHolderColor,
       ),
       bodyLarge: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-          color: appColors.secondaryColor
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        color: appColors.secondaryColor,
       ),
       titleSmall: TextStyle(
-         fontSize: 16,
-         fontWeight: FontWeight.w500,
-         color: appColors.secondaryColor
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: appColors.secondaryColor,
       ),
       titleMedium: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          color: appColors.secondaryColor
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: appColors.secondaryColor,
       ),
       titleLarge: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: appColors.secondaryColor
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: appColors.secondaryColor,
       ),
-     labelMedium: TextStyle(
-         fontSize: 12,
-         fontWeight: FontWeight.w500,
-         color: appColors.secondaryColor
-     ),
-   )
+      labelMedium: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: appColors.secondaryColor,
+      ),
+    )
   );
 }
