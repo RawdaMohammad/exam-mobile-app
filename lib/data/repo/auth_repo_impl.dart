@@ -27,9 +27,7 @@ class AuthRepoImpl implements AuthRepo {
       if (rememberMe) {
         await sharedPreferences.setString(tokenKey, response.token ?? "");
       } else {
-        await sharedPreferences.setString(tokenKey, "");
-        debugPrint("Token: ${response.token}");
-        
+        await sharedPreferences.setString(tokenKey, "");        
       }
       return Success(mapper.toEntity(response));
     });
