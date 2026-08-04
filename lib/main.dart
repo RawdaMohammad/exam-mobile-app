@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/app_config_provider.dart';
 import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:exam_mobile_app/core/di/di.dart';
+import 'package:exam_mobile_app/core/local/hive/hive_config.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/exam_questions_view.dart';
+import 'package:exam_mobile_app/presentation/exam/result/cubit/exam_results_cubit.dart';
+import 'package:exam_mobile_app/presentation/exam/result/exam_results_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +21,11 @@ Future<Widget> getStartScreen() async {
   final rememberMe = prefs.getBool(rememberMeKey) ?? false;
 
   if (rememberMe) {
-    return BlocProvider(
+        return BlocProvider(
       create: (_) => getIt<ExamQuestionCubit>(),
       child: const ExamQuestionsView(),
-    ); // Replace with home screen
+    );
+    // Replace with home screen
   } else {
     return BlocProvider(
       create: (_) => getIt<LoginCubit>(),
@@ -30,8 +34,9 @@ Future<Widget> getStartScreen() async {
   }
 }
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HiveConfig.init();
   await configureDependencies();
   await EasyLocalization.ensureInitialized();
   await getIt<AppConfigProvider>().setDefaultTheme();
