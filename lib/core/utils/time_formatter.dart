@@ -1,4 +1,4 @@
-class TimeFormatter {
+abstract class TimeFormatter {
   static String format(int seconds) {
     final minutes = seconds ~/ 60;
     final remainingSeconds = seconds % 60;

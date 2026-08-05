@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:exam_mobile_app/core/network/api_constant.dart';
 import 'package:exam_mobile_app/data/models/exam_question_response.dart';
 import 'package:exam_mobile_app/data/models/exam_result_response.dart';
+import 'package:exam_mobile_app/data/models/subjects_response.dart';
 import 'package:exam_mobile_app/data/models/user_response.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
 import 'package:exam_mobile_app/data/request/submit_exam_request.dart';
@@ -33,4 +34,7 @@ abstract class ExamApiClient {
 
   @GET("/api/v1/subjects/{subjectId}")
   Future<SubjectDetailsResponse> getSubject(@Path("subjectId") String subjectId);
+  
+  @GET("/api/v1/subjects")
+  Future<SubjectsResponse> getSubjects();
 }

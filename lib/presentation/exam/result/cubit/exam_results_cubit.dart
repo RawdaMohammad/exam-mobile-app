@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:exam_mobile_app/domain/entities/exam_details_entity.dart';
-import 'package:exam_mobile_app/domain/entities/subject_details_entity.dart';
+import 'package:exam_mobile_app/domain/entities/subject_entity.dart';
 import 'package:exam_mobile_app/domain/use_case/get_exam_history_use_case.dart';
 import 'package:exam_mobile_app/domain/use_case/get_exam_use_case.dart';
-import 'package:exam_mobile_app/domain/use_case/get_subject_use_case.dart';
+import 'package:exam_mobile_app/domain/use_case/get_subject_by_id_use_case.dart';
 import 'package:exam_mobile_app/presentation/exam/result/cubit/exam_results_event.dart';
 import 'package:exam_mobile_app/presentation/exam/result/cubit/exam_results_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +14,11 @@ import 'package:injectable/injectable.dart';
 class ExamResultsCubit extends Cubit<ExamResultsState> {
   final GetExamHistoryUseCase _getExamHistoryUseCase;
   final GetExamUseCase _getExamUseCase;
-  final GetSubjectUseCase _getSubjectUseCase;
+  final GetSubjectByIdUseCase _getSubjectByIdUseCase;
 
   ExamResultsCubit(
     this._getExamUseCase,
-    this._getSubjectUseCase,
+    this._getSubjectByIdUseCase,
     this._getExamHistoryUseCase,
   ) : super(ExamResultsState.initial());
 
@@ -50,11 +50,11 @@ class ExamResultsCubit extends Cubit<ExamResultsState> {
 
       final examIds = histories.map((history) => history.examId).toSet();
 
-      final subjects = <String, SubjectDetailsEntity>{};
+      final subjects = <String, SubjectEntity>{};
       final exams = <String, ExamDetailsEntity>{};
 
       for (final subjectId in subjectIds) {
-        final response = await _getSubjectUseCase.call(subjectId);
+        final response = await _getSubjectByIdUseCase.call(subjectId);
         subjects[subjectId] = response;
       }
 

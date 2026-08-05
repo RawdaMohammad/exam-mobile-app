@@ -5,8 +5,7 @@ import 'package:exam_mobile_app/core/di/di.dart';
 import 'package:exam_mobile_app/core/local/hive/hive_config.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/exam_questions_view.dart';
-import 'package:exam_mobile_app/presentation/exam/result/cubit/exam_results_cubit.dart';
-import 'package:exam_mobile_app/presentation/exam/result/exam_results_view.dart';
+import 'package:exam_mobile_app/presentation/home_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +19,8 @@ Future<Widget> getStartScreen() async {
   final prefs = getIt<SharedPreferences>();
   final rememberMe = prefs.getBool(rememberMeKey) ?? false;
 
-  if (rememberMe) {
-        return BlocProvider(
-      create: (_) => getIt<ExamQuestionCubit>(),
-      child: const ExamQuestionsView(),
-    );
-    // Replace with home screen
+if (rememberMe) {
+    return const HomeView(); 
   } else {
     return BlocProvider(
       create: (_) => getIt<LoginCubit>(),

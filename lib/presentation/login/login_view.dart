@@ -5,6 +5,7 @@ import 'package:exam_mobile_app/core/di/di.dart' show getIt;
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
 import 'package:exam_mobile_app/presentation/forget_password_view.dart';
+import 'package:exam_mobile_app/presentation/home_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_events.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_state.dart';
@@ -60,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
             if (event.message == tr("login.loginSuccessful")) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const ForgetPasswordView()),
+                MaterialPageRoute(builder: (_) => const HomeView()),
               );
             }
         }
