@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:exam_mobile_app/core/network/api_results.dart';
 import 'package:exam_mobile_app/core/network/safe_call.dart';
@@ -48,7 +49,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<ApiResults<UserEntity>> forgotPassword(String? email) {
     return safeCall(() async {
       final response = UserResponse(
-        message: "Reset code sent successfully"
+        message: tr("forgetPassword.success")
       );
       await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));
@@ -59,7 +60,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<ApiResults<UserEntity>> resetPassword(String? email, String? newPassword) {
     return safeCall(() async {
       final response = UserResponse(
-        message: "Password reset successfully"
+        message: tr("resetPassword.success")
       );
       await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));
@@ -70,7 +71,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<ApiResults<UserEntity>> verifyResetCode(String? resetCode) {
     return safeCall(() async {
       final response = UserResponse(
-        message: "Reset code verified successfully"
+        message: tr("verification.success")
       );
       await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));

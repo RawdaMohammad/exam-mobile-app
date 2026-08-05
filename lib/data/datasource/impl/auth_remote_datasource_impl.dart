@@ -1,6 +1,7 @@
 import 'package:exam_mobile_app/data/api/exam_api_client.dart';
 import 'package:exam_mobile_app/data/datasource/contract/auth_remote_datasource.dart';
 import 'package:exam_mobile_app/data/models/user_response.dart';
+import 'package:exam_mobile_app/data/request/forget_password_request.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
 import 'package:injectable/injectable.dart';
 
@@ -21,17 +22,17 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<UserResponse> forgotPassword(String? email) {
-    return apiClient.forgetPassword({"email": email});
+  Future<UserResponse> forgotPassword(ForgetPasswordRequest request) {
+    return apiClient.forgetPassword(request);
   }
 
   @override
-  Future<UserResponse> resetPassword(String? email, String? newPassword) {
-    return apiClient.resetPassword({"email": email, "newPassword": newPassword});
+  Future<UserResponse> resetPassword(ForgetPasswordRequest request) {
+    return apiClient.resetPassword(request);
   }
 
   @override
-  Future<UserResponse> verifyResetCode(String? resetCode) {
-    return apiClient.verifyResetCode({"resetCode": resetCode});
+  Future<UserResponse> verifyResetCode(ForgetPasswordRequest request) {
+    return apiClient.verifyResetCode(request);
   }
 }

@@ -5,6 +5,23 @@ class CheckEmailEvent extends ForgetPasswordEvents {
   CheckEmailEvent(this.email);
 }
 
+class VerifyResetCodeEvent extends ForgetPasswordEvents {
+  final String resetCode;
+  VerifyResetCodeEvent(this.resetCode);
+}
+
+class ResetPasswordEvent extends ForgetPasswordEvents {
+  final String newPassword;
+  ResetPasswordEvent(this.newPassword);
+}
+
+class ResendResetCodeEvent extends ForgetPasswordEvents {}
+
+class PasswordChangedEvent extends ForgetPasswordEvents {
+  final String password;
+  PasswordChangedEvent(this.password);
+}
+
 class FormValidityChanged extends ForgetPasswordEvents {
   final bool isFormValid;
   FormValidityChanged(this.isFormValid);
@@ -12,9 +29,13 @@ class FormValidityChanged extends ForgetPasswordEvents {
 
 sealed class ForgetPasswordUIEvents {}
 
-class NavigateToVerifyEmail extends ForgetPasswordUIEvents {}
+class NavigateToVerification extends ForgetPasswordUIEvents {}
 
-class ShowSnackBar  extends ForgetPasswordUIEvents {
+class NavigateToResetPassword extends ForgetPasswordUIEvents {}
+
+class NavigateToHome extends ForgetPasswordUIEvents {}
+
+class ShowSnackBar extends ForgetPasswordUIEvents {
   final String message;
-  ShowSnackBar (this.message);
+  ShowSnackBar(this.message);
 }

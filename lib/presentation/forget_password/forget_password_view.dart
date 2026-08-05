@@ -21,26 +21,35 @@ class ForgetPasswordView extends StatefulWidget {
 class _ForgetPasswordViewState extends State<ForgetPasswordView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final ForgetPasswordCubit forgetPasswordCubit = getIt();
-  late final StreamSubscription<ForgetPasswordUIEvents> _subscription;
+  late ForgetPasswordCubit forgetPasswordCubit;
+  late StreamSubscription<ForgetPasswordUIEvents> _subscription;
 
   @override
   void initState() {
     super.initState();
+    forgetPasswordCubit = context.read<ForgetPasswordCubit>();
     _subscription = forgetPasswordCubit.uiStream.listen((event) {
       switch (event) {
-        case NavigateToVerifyEmail():
+        case NavigateToVerification():
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const VerificationView()),
+            MaterialPageRoute(
+              builder: (_) => BlocProvider.value(
+                value: context.read<ForgetPasswordCubit>(),
+                child: const VerificationView(),
+              ),
+            ),
           );
         case ShowSnackBar():
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(event.message)));
+        default:
+          break;
       }
     });
   }
+
   @override
   void dispose() {
     _subscription.cancel();
@@ -50,79 +59,79 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: forgetPasswordCubit,
-      child: BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {},
-              ),
-              title: Text(
-                tr("passwordAppBar"),
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              leadingWidth: 25,
+    var textTheme = Theme.of(context).textTheme;
+    var color = Theme.of(context).colorScheme;
+    return BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {},
             ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          tr("forgetPassword.title"),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          tr("forgetPassword.description"),
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                              ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 32),
+            title: Text(
+              tr("passwordAppBar"),
+              style: textTheme.titleLarge,
+            ),
+            leadingWidth: 25,
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        tr("forgetPassword.title"),
+                        style: textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        tr("forgetPassword.description"),
+                        style: textTheme.bodyMedium
+                            ?.copyWith(
+                              color: color.tertiary,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 32),
 
-                        AppTextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          labelText: tr("forgetPassword.emailLabel"),
-                          hintText: tr("forgetPassword.emailHint"),
-                          onChanged: (_) {
-                            forgetPasswordCubit.doIntent(
-                              FormValidityChanged(
-                                _formKey.currentState?.validate() ?? false,
-                              ),
-                            );
-                          },
-                          validator: SignupValidators.email,
-                        ),
-                        const SizedBox(height: 48),
-                        CustomButton(
-                          isNotDisabled: state.isFormValid,
-                          buttonLabel: tr("forgetPassword.continueButton"),
-                          onPressedAction: () {
-                            forgetPasswordCubit.doIntent(
-                              CheckEmailEvent(_emailController.text.trim()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                      AppTextFormField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        labelText: tr("forgetPassword.emailLabel"),
+                        hintText: tr("forgetPassword.emailHint"),
+                        onChanged: (_) {
+                          context.read<ForgetPasswordCubit>().doIntent(
+                            FormValidityChanged(
+                              _formKey.currentState?.validate() ?? false,
+                            ),
+                          );
+                        },
+                        validator: SignupValidators.email,
+                      ),
+                      const SizedBox(height: 48),
+                      CustomButton(
+                        isLoading: state.isLoading,
+                        isNotDisabled: state.isFormValid!,
+                        buttonLabel: tr("forgetPassword.continueButton"),
+                        onPressedAction: () {
+                          context.read<ForgetPasswordCubit>().doIntent(
+                            CheckEmailEvent(_emailController.text.trim()),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

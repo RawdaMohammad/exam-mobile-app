@@ -251,6 +251,7 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                       SizedBox(height: 70),
                       CustomButton(
+                        isLoading: state.signUp.status as bool,
                         isNotDisabled: state.isFormValid,
                         buttonLabel: tr("signup.signupButton"),
                         onPressedAction: () {

@@ -1,4 +1,8 @@
 {
+  "messages": {
+    "otpSent": "OTP sent",
+    "errorSentOtp": "Can't send OTP try again"
+  },
   "errors": {
     "connectionTimeout": "Connection timed out. Please try again.",
     "sendTimeout": "Sending request took too long.",
@@ -27,7 +31,7 @@
     "continueButton": "Continue",
     "emailRequired": "Please enter valid email",
     "invalidEmail": "This email not valid",
-    "success": "Password reset email has been sent"
+    "success": "Reset Code has been sent to mail"
   },
   "resetPassword": {
     "title": "Reset Password",

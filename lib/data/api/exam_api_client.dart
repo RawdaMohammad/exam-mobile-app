@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:exam_mobile_app/core/network/api_constant.dart';
 import 'package:exam_mobile_app/data/models/user_response.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
-
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+
+import '../request/forget_password_request.dart';
 part 'exam_api_client.g.dart';
 
 @singleton
@@ -20,11 +21,11 @@ abstract class ExamApiClient {
   Future<UserResponse> signUp(@Body() SignUpRequest request);
 
   @POST("/api/v1/auth/forgotPassword")
-  Future<UserResponse> forgetPassword( @Body() Map<String,dynamic> body);
+  Future<UserResponse> forgetPassword( @Body() ForgetPasswordRequest request);
 
   @POST("/api/v1/auth/verifyResetCode")
-  Future<UserResponse> verifyResetCode( @Body() Map<String,dynamic> body);
+  Future<UserResponse> verifyResetCode( @Body() ForgetPasswordRequest request);
 
   @PUT("/api/v1/auth/resetPassword")
-  Future<UserResponse> resetPassword( @Body() Map<String,dynamic> body);
+  Future<UserResponse> resetPassword( @Body() ForgetPasswordRequest request);
 }

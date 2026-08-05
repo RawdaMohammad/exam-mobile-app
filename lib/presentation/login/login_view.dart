@@ -165,6 +165,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       SizedBox(height: 70),
                       CustomButton(
+                        isLoading: state.login.status as bool,
                         isNotDisabled:
                             state.isFormValid &&
                             state.login.status != Status.loading,
