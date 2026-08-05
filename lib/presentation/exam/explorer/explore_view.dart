@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:exam_mobile_app/presentation/exam/explorer/cubit/explore_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/explorer/cubit/explore_events.dart';
-import 'package:exam_mobile_app/presentation/forget_password_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/widgets/subject_card.dart';
