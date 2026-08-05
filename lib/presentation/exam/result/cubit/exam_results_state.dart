@@ -1,11 +1,11 @@
 import 'package:exam_mobile_app/domain/entities/exam_details_entity.dart';
 import 'package:exam_mobile_app/domain/entities/exam_history_entity.dart';
-import 'package:exam_mobile_app/domain/entities/subject_details_entity.dart';
+import 'package:exam_mobile_app/domain/entities/subject_entity.dart';
 
 class ExamResultsState {
   final bool isLoading;
   final List<ExamHistoryEntity> histories;
-  final Map<String, SubjectDetailsEntity> subjects;
+  final Map<String, SubjectEntity> subjects;
   final Map<String, ExamDetailsEntity> exams;
   final String? errorMessage;
 
@@ -23,7 +23,7 @@ class ExamResultsState {
   ExamResultsState copyWith({
     bool? isLoading,
     List<ExamHistoryEntity>? histories,
-    Map<String, SubjectDetailsEntity>? subjects,
+    Map<String, SubjectEntity>? subjects,
     Map<String, ExamDetailsEntity>? exams,
     String? errorMessage,
   }) {

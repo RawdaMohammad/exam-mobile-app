@@ -63,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
             if (event.message == tr("login.loginSuccessful")) {
               Navigator.pushNamed(
                 context,
-                AppRoutes.forgetPassword,
+                AppRoutes.home,
               );
             }
         }

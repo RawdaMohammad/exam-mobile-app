@@ -3,7 +3,7 @@ import 'package:exam_mobile_app/data/models/exam_history.dart';
 import 'package:exam_mobile_app/data/models/exam_history_adapter.dart';
 import 'package:exam_mobile_app/data/models/attempted_question_adapter.dart';
 
-class HiveConfig {
+abstract class HiveConfig {
   static const String examHistoryBox = 'exam_history_box';
 
   static Future<void> init() async {

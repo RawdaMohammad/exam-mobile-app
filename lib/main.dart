@@ -9,6 +9,7 @@ import 'package:exam_mobile_app/presentation/forget_password/cubit/forget_passwo
 import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
 import 'package:exam_mobile_app/presentation/forget_password/reset_password_view.dart';
 import 'package:exam_mobile_app/presentation/forget_password/verification_view.dart';
+import 'package:exam_mobile_app/presentation/home_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +23,8 @@ Future<Widget> getStartScreen() async {
   final prefs = getIt<SharedPreferences>();
   final rememberMe = prefs.getBool(rememberMeKey) ?? false;
 
-  if (rememberMe) {
-        return BlocProvider(
-      create: (_) => getIt<ExamQuestionCubit>(),
-      child: const ExamQuestionsView(),
-    );
-    // Replace with home screen
+if (rememberMe) {
+    return const HomeView(); 
   } else {
     return BlocProvider(
       create: (_) => getIt<LoginCubit>(),

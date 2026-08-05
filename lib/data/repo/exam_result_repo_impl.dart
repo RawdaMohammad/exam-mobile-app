@@ -1,6 +1,6 @@
 import 'package:exam_mobile_app/data/datasource/contract/exam_result_remote_datasource.dart';
 import 'package:exam_mobile_app/domain/entities/exam_details_entity.dart';
-import 'package:exam_mobile_app/domain/entities/subject_details_entity.dart';
+import 'package:exam_mobile_app/domain/entities/subject_entity.dart';
 import 'package:exam_mobile_app/domain/repo/exam_result_repo.dart';
 import 'package:injectable/injectable.dart';
 
@@ -24,10 +24,10 @@ class ExamResultRepoImpl implements ExamResultRepo {
   }
 
   @override
-  Future<SubjectDetailsEntity> getSubject(String subjectId) async {
+  Future<SubjectEntity> getSubject(String subjectId) async {
     final response = await _dataSource.getSubject(subjectId);
 
-    return SubjectDetailsEntity(
+    return SubjectEntity(
       id: response.subject.id,
       name: response.subject.name,
       icon: response.subject.icon,

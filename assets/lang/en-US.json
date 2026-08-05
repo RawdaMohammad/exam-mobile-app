@@ -156,6 +156,16 @@
 
   "answers": "Answers",
   "no_exam_history_found": "No exam history found",
-  "no_questions_found": "No questions found"
+  "no_questions_found": "No questions found",
+ 
+  "appBar": {
+    "explore": "Survey"
+  },
+  "explore": {
+    "title": "Browse by subject"
+  },
+  "search": {
+    "subjects": "Search"
+  }
 
 }

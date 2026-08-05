@@ -9,8 +9,7 @@ import 'package:injectable/injectable.dart';
 class ExamHistoryLocalDataSourceImpl implements ExamHistoryLocalDatasource {
   final Box<ExamHistory> _box;
 
-  ExamHistoryLocalDataSourceImpl()
-    : _box = Hive.box<ExamHistory>(HiveConfig.examHistoryBox);
+  ExamHistoryLocalDataSourceImpl(this._box);
   @override
   Future<void> saveExamHistory(ExamHistoryEntity history) async {
     final model = ExamHistory(
