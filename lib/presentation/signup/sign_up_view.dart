@@ -16,6 +16,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/base/resources.dart';
+
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
 
@@ -262,7 +264,7 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                       SizedBox(height: 70),
                       CustomButton(
-                        isLoading: state.signUp.status as bool,
+                        isLoading: state.signUp.status == Status.loading,
                         isNotDisabled: state.isFormValid,
                         buttonLabel: tr("signup.signupButton"),
                         onPressedAction: () {

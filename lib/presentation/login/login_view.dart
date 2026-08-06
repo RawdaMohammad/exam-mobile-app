@@ -14,6 +14,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/routes/app_routes.dart';
+import '../forget_password/cubit/forget_password_cubit.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -58,9 +61,9 @@ class _LoginViewState extends State<LoginView> {
             ).showSnackBar(SnackBar(content: Text(event.message)));
 
             if (event.message == tr("login.loginSuccessful")) {
-              Navigator.pushReplacement(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(builder: (_) => const ForgetPasswordView()),
+                AppRoutes.forgetPassword,
               );
             }
         }
@@ -152,11 +155,9 @@ class _LoginViewState extends State<LoginView> {
                           const Spacer(),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushNamed(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (_) => const ForgetPasswordView(),
-                                ),
+                                AppRoutes.forgetPassword,
                               );
                             },
                             style: TextButton.styleFrom(
@@ -176,7 +177,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       SizedBox(height: 70),
                       CustomButton(
-                        isLoading: state.login.status as bool,
+                        isLoading: state.login.status == Status.loading,
                         isNotDisabled:
                             state.isFormValid &&
                             state.login.status != Status.loading,

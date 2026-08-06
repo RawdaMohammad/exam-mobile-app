@@ -76,8 +76,8 @@ class MyApp extends StatelessWidget {
               theme: getIt<AppTheme>().themeData,
               // home: startScreen,
               home: BlocProvider(
-                create: (_) => getIt<ForgetPasswordCubit>(),
-                child: const ForgetPasswordView(),
+                create: (_) => getIt<LoginCubit>(),
+                child: const LoginView(),
               ),
               routes: {
                 AppRoutes.login: (context) => BlocProvider(
