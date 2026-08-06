@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
+    required this.isLoading,
     required this.isNotDisabled,
     required this.buttonLabel,
     required this.onPressedAction,
@@ -12,6 +13,7 @@ class CustomButton extends StatelessWidget {
     this.borderColor,
   });
 
+  final bool isLoading;
   final bool isNotDisabled;
   final String buttonLabel;
   final VoidCallback onPressedAction;
@@ -26,7 +28,9 @@ class CustomButton extends StatelessWidget {
       width: double.infinity,
       height: 48,
       child: FilledButton(
-        onPressed: isNotDisabled ? onPressedAction : null,
+        onPressed: isLoading || !isNotDisabled
+        ? null
+        : onPressedAction,
         style: FilledButton.styleFrom(
           backgroundColor: isNotDisabled
               ? (backgroundColor ?? Theme.of(context).colorScheme.primary)
@@ -37,12 +41,18 @@ class CustomButton extends StatelessWidget {
             width: 1.5,
           ),
         ),
-        child: Text(
-          buttonLabel,
-          style: Theme.of(
-            context,
-          ).textTheme.titleSmall?.copyWith(color: textColor ?? Colors.white),
-        ),
+        child: isLoading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Text(
+                buttonLabel,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall?.copyWith(color: Colors.white),
+              ),
       ),
     );
   }

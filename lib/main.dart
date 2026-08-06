@@ -5,15 +5,17 @@ import 'package:exam_mobile_app/core/di/di.dart';
 import 'package:exam_mobile_app/core/local/hive/hive_config.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/exam_questions_view.dart';
-import 'package:exam_mobile_app/presentation/exam/result/cubit/exam_results_cubit.dart';
-import 'package:exam_mobile_app/presentation/exam/result/exam_results_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password/cubit/forget_password_cubit.dart';
+import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password/reset_password_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password/verification_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart';
 
 Future<Widget> getStartScreen() async {
@@ -72,7 +74,31 @@ class MyApp extends StatelessWidget {
               locale: context.locale,
               title: 'Exam App',
               theme: getIt<AppTheme>().themeData,
-              home: startScreen,
+              // home: startScreen,
+              home: BlocProvider(
+                create: (_) => getIt<ForgetPasswordCubit>(),
+                child: const ForgetPasswordView(),
+              ),
+              routes: {
+                AppRoutes.login: (context) => BlocProvider(
+                  create: (_) => getIt<LoginCubit>(),
+                  child: const LoginView(),
+                ),
+                AppRoutes.forgetPassword: (context) => BlocProvider(
+                  create: (_) => getIt<ForgetPasswordCubit>(),
+                  child: const ForgetPasswordView(),
+                ),
+
+                AppRoutes.verifyResetCode: (context) => BlocProvider.value(
+                  value: context.read<ForgetPasswordCubit>(),
+                  child: const VerificationView(),
+                ),
+
+                AppRoutes.resetPassword: (context) => BlocProvider.value(
+                  value: context.read<ForgetPasswordCubit>(),
+                  child: const ResetPasswordView(),
+                ),
+              },
             );
           },
         );

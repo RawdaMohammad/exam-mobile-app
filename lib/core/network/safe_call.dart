@@ -25,7 +25,6 @@ AppError errorParser(Exception exception) {
         return ForceLoginAppError();
       case DioExceptionType.badResponse:
         return _handleBadResponse(exception);
-
       case DioExceptionType.connectionError:
         return NoInternetAppError(tr("errors.noInternet"));
       case DioExceptionType.cancel:

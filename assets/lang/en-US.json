@@ -1,5 +1,8 @@
 {
-    
+  "messages": {
+    "otpSent": "OTP sent",
+    "errorSentOtp": "Can't send OTP try again"
+  },
   "errors": {
     "connectionTimeout": "Connection timed out. Please try again.",
     "sendTimeout": "Sending request took too long.",
@@ -19,7 +22,6 @@
     "serviceUnavailable": "Service is temporarily unavailable.",
     "unknown": "An unexpected error occurred."
   },
-
   "passwordAppBar": "Password",
   "forgetPassword": {
     "title": "Forget Password",
@@ -29,7 +31,7 @@
     "continueButton": "Continue",
     "emailRequired": "Please enter valid email",
     "invalidEmail": "This email not valid",
-    "success": "Password reset email has been sent"
+    "success": "Reset Code has been sent to mail"
   },
   "resetPassword": {
     "title": "Reset Password",
@@ -56,8 +58,6 @@
     "codeExpired": "The verification code has expired",
     "success": "Verification successful"
   },
-
-  
   "signup": {
     "SignUpAppBar": "Sign up",
     "userName": "User name",

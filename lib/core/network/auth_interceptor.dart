@@ -25,8 +25,7 @@ class AuthInterceptor implements Interceptor {
   @override
   Future<void> onRequest(
     RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
+    RequestInterceptorHandler handler) async {
     String? token = sharedPreferences.getString(tokenKey);
     if (!publicEndpoints.contains(options.path) &&
         token != null &&
@@ -40,8 +39,7 @@ class AuthInterceptor implements Interceptor {
   @override
   void onResponse(
     Response<dynamic> response,
-    ResponseInterceptorHandler handler,
-  ) {
+    ResponseInterceptorHandler handler) {
     debugPrint("Status: ${response.statusCode}");
     handler.next(response);
   }

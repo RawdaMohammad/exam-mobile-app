@@ -152,6 +152,7 @@ class _ExamScoreView extends State<ExamScoreView> {
               ),
               SizedBox(height: 100),
               CustomButton(
+                isLoading: false,
                 isNotDisabled: true,
                 buttonLabel: tr("show_results"),
                 onPressedAction: () {
@@ -168,6 +169,7 @@ class _ExamScoreView extends State<ExamScoreView> {
               ),
               SizedBox(height: 30),
               CustomButton(
+                isLoading: false,
                 isNotDisabled: true,
                 backgroundColor: Colors.white,
                 textColor: Theme.of(context).colorScheme.primary,
