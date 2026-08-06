@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExamQuestionsView extends StatefulWidget {
-  const ExamQuestionsView({super.key});
+  final String examId;
+  const ExamQuestionsView({super.key,required this.examId});
 
   @override
   State<ExamQuestionsView> createState() => _ExamQuestionsViewState();
@@ -24,7 +25,7 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
   @override
   void initState() {
     super.initState();
-    context.read<ExamQuestionCubit>().doIntent(LoadExam());
+    context.read<ExamQuestionCubit>().doIntent(LoadExam(widget.examId));
     _subscription = context.read<ExamQuestionCubit>().uiStream.listen((event) {
       switch (event) {
         case ShowTimeOutDialog():
@@ -42,7 +43,7 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (_) => ExamScoreView(result: event.result),
+              builder: (_) => ExamScoreView(result: event.result, examID: widget.examId,),
             ),
           );
       }

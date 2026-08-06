@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:exam_mobile_app/core/network/api_constant.dart';
+import 'package:exam_mobile_app/data/models/exam_list_response.dart';
 import 'package:exam_mobile_app/data/models/exam_question_response.dart';
 import 'package:exam_mobile_app/data/models/exam_result_response.dart';
 import 'package:exam_mobile_app/data/models/subjects_response.dart';
@@ -25,13 +26,13 @@ abstract class ExamApiClient {
   Future<UserResponse> signUp(@Body() SignUpRequest request);
 
   @POST("/api/v1/auth/forgotPassword")
-  Future<UserResponse> forgetPassword( @Body() ForgetPasswordRequest request);
+  Future<UserResponse> forgetPassword(@Body() ForgetPasswordRequest request);
 
   @POST("/api/v1/auth/verifyResetCode")
-  Future<UserResponse> verifyResetCode( @Body() ForgetPasswordRequest request);
+  Future<UserResponse> verifyResetCode(@Body() ForgetPasswordRequest request);
 
   @PUT("/api/v1/auth/resetPassword")
-  Future<UserResponse> resetPassword( @Body() ForgetPasswordRequest request);
+  Future<UserResponse> resetPassword(@Body() ForgetPasswordRequest request);
 
   @GET("/api/v1/questions")
   Future<ExamQuestionsResponse> getExamQuestions(@Query("exam") String examId);
@@ -43,8 +44,13 @@ abstract class ExamApiClient {
   Future<ExamDetailsResponse> getExam(@Path("examId") String examId);
 
   @GET("/api/v1/subjects/{subjectId}")
-  Future<SubjectDetailsResponse> getSubject(@Path("subjectId") String subjectId);
-  
+  Future<SubjectDetailsResponse> getSubject(
+    @Path("subjectId") String subjectId,
+  );
+
   @GET("/api/v1/subjects")
   Future<SubjectsResponse> getSubjects();
+
+  @GET("/api/v1/exams")
+  Future<ExamListResponse> getExamsBySubject(@Query("subject") String subjectId);
 }

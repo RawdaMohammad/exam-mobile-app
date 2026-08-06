@@ -35,7 +35,7 @@ class ExamQuestionCubit extends Cubit<ExamQuestionState> {
       case StopTimer():
         await _stopTimer();
       case LoadExam():
-        await _loadExam();
+        await _loadExam(event.examID);
       case NextQuestion():
         emit(state.copyWith(currentQuestion: state.currentQuestion + 1));
       case PreviousQuestion():
@@ -63,12 +63,10 @@ class ExamQuestionCubit extends Cubit<ExamQuestionState> {
     });
   }
 
-  Future<void> _loadExam() async {
+  Future<void> _loadExam(String examID) async {
     emit(state.copyWith(isLoading: true));
 
-    final response = await _apiClient.getExamQuestions(
-      "69d9801a7c82914570305e5d",
-    );
+    final response = await _apiClient.getExamQuestions(examID);
     final initialDuration = response.questions.first.exam.duration * 60;
     final subject = response.questions.first.subject;
     final exam = response.questions.first.exam;

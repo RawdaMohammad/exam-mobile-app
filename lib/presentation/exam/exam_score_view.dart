@@ -12,8 +12,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ExamScoreView extends StatefulWidget {
   final ExamResultEntity result;
+  final String examID;
 
-  const ExamScoreView({super.key, required this.result});
+  const ExamScoreView({super.key, required this.result, required this.examID});
 
   @override
   State<ExamScoreView> createState() => _ExamScoreView();
@@ -181,7 +182,7 @@ class _ExamScoreView extends State<ExamScoreView> {
                     MaterialPageRoute(
                       builder: (_) => BlocProvider(
                         create: (_) => getIt<ExamQuestionCubit>(),
-                        child: const ExamQuestionsView(),
+                        child: ExamQuestionsView(examId: widget.examID),
                       ),
                     ),
                   );

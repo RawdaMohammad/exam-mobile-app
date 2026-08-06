@@ -3,6 +3,9 @@
     "otpSent": "OTP sent",
     "errorSentOtp": "Can't send OTP try again"
   },
+  "startExam": {
+    "startButton": "Start"
+  },
   "errors": {
     "connectionTimeout": "Connection timed out. Please try again.",
     "sendTimeout": "Sending request took too long.",

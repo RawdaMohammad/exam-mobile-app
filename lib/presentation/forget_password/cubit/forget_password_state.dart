@@ -3,22 +3,22 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class ForgetPasswordState extends Equatable {
-  final String? email;
-  final String? resetCode;
-  final String? newPassword;
+  final String email;
+  final String resetCode;
+  final String newPassword;
   final bool isLoading;
-  final bool? isFormValid;
-  final bool? showPasswordRules;
-  final bool? hasMinLength;
-  final bool? hasUpperCase;
-  final bool? hasLowerCase;
-  final bool? hasNumber;
-  final bool? hasSpecialCharacter;
+  final bool isFormValid;
+  final bool showPasswordRules;
+  final bool hasMinLength;
+  final bool hasUpperCase;
+  final bool hasLowerCase;
+  final bool hasNumber;
+  final bool hasSpecialCharacter;
 
   const ForgetPasswordState({
-    this.email,
-    this.resetCode,
-    this.newPassword,
+    this.email='',
+    this.resetCode='',
+    this.newPassword='',
     this.isLoading = false,
     this.isFormValid = false,
     this.showPasswordRules = false,

@@ -22,7 +22,7 @@ class ExploreCubit extends Cubit<ExploreState> {
       case SearchSubjects():
         _searchSubjects(event.searchQuery);
       case SubjectClicked():
-        _navigateToSubjectExams(event.subjectID);
+        _navigateToSubjectExams(event.subject);
     }
   }
 
@@ -44,7 +44,7 @@ class ExploreCubit extends Cubit<ExploreState> {
     emit(state.copyWith(filteredSubjects: filteredSubjects));
   }
 
-  void _navigateToSubjectExams(String subjectID) {
-    _uiController.add(NavigateToSubjectExams(subjectID));
+  void _navigateToSubjectExams(SubjectEntity subject){
+    _uiController.add(NavigateToSubjectExams(subject));
   }
 }

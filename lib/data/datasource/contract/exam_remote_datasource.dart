@@ -1,3 +1,4 @@
+import 'package:exam_mobile_app/data/models/exam_list_response.dart';
 import 'package:exam_mobile_app/data/models/exam_question_response.dart';
 import 'package:exam_mobile_app/data/models/subjects_response.dart';
 import 'package:exam_mobile_app/data/models/exam_result_response.dart';
@@ -9,4 +10,6 @@ abstract interface class ExamRemoteDatasource {
   Future<SubjectsResponse> getSubjects();
 
   Future<ExamResultResponse> submitExam(SubmitExamRequest request);
+
+  Future<ExamListResponse> getExamsBySubject(String subjectId);
 }

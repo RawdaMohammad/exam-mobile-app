@@ -2,7 +2,10 @@ import 'package:exam_mobile_app/domain/entities/exam_resulr_entity.dart';
 
 sealed class ExamQuestionEvent {}
 
-class LoadExam extends ExamQuestionEvent {}
+class LoadExam extends ExamQuestionEvent {
+  final String examID;
+  LoadExam(this.examID);
+}
 
 class StartTimer extends ExamQuestionEvent {}
 

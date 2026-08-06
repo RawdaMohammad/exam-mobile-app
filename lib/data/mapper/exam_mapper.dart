@@ -1,6 +1,9 @@
-import 'package:exam_mobile_app/data/models/exam_question_response.dart' hide SubjectResponse;
+import 'package:exam_mobile_app/data/models/exam_list_response.dart';
+import 'package:exam_mobile_app/data/models/exam_question_response.dart'
+    hide SubjectResponse;
 import 'package:exam_mobile_app/data/models/subjects_response.dart';
 import 'package:exam_mobile_app/domain/entities/answer_entity.dart';
+import 'package:exam_mobile_app/domain/entities/exam_details_entity.dart';
 import 'package:exam_mobile_app/domain/entities/question_entity.dart';
 import 'package:exam_mobile_app/domain/entities/subject_entity.dart';
 import 'package:injectable/injectable.dart';
@@ -46,6 +49,22 @@ class ExamMapper {
       id: subjectResponse.id,
       name: subjectResponse.name,
       icon: subjectResponse.icon,
+    );
+  }
+
+  List<ExamDetailsEntity> mapExamListToEntityList(
+    List<ExamListItemResponse> exams,
+  ) {
+    return exams.map((exam) => mapExamToEntity(exam)).toList();
+  }
+
+  ExamDetailsEntity mapExamToEntity(ExamListItemResponse exam) {
+    return ExamDetailsEntity(
+      id: exam.id,
+      title: exam.title,
+      duration: exam.duration,
+      subject: exam.subject,
+      numberOfQuestions: exam.numberOfQuestions,
     );
   }
 }

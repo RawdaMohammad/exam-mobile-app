@@ -4,6 +4,7 @@ import 'package:exam_mobile_app/data/api/exam_api_client.dart';
 import 'package:exam_mobile_app/data/datasource/contract/exam_remote_datasource.dart';
 import 'package:exam_mobile_app/data/mapper/exam_mapper.dart';
 import 'package:exam_mobile_app/data/request/submit_exam_request.dart';
+import 'package:exam_mobile_app/domain/entities/exam_details_entity.dart';
 import 'package:exam_mobile_app/domain/entities/exam_resulr_entity.dart';
 import 'package:exam_mobile_app/domain/entities/question_entity.dart';
 import 'package:exam_mobile_app/domain/entities/subject_entity.dart';
@@ -15,7 +16,7 @@ class ExamRepoImpl implements ExamRepo {
   final ExamMapper _examMapper;
   final ExamRemoteDatasource _examRemoteDatasource;
 
-  ExamRepoImpl(this._examMapper,this._examRemoteDatasource);
+  ExamRepoImpl(this._examMapper, this._examRemoteDatasource);
   @override
   Future<ApiResults<List<QuestionEntity>>> getExamQuestion(
     String examId,
@@ -35,13 +36,27 @@ class ExamRepoImpl implements ExamRepo {
       return Success(response.toEntity());
     });
   }
+
   @override
   Future<ApiResults<List<SubjectEntity>>> getSubjects() {
     return safeCall(() async {
       final response = await _examRemoteDatasource.getSubjects();
       return Success(
-        _examMapper.subjectResponseListToSubjectEntityList(response.subjects ?? []),
+        _examMapper.subjectResponseListToSubjectEntityList(
+          response.subjects ?? [],
+        ),
       );
+    });
+  }
+
+  @override
+  Future<ApiResults<List<ExamDetailsEntity>>> getExamsBySubject(
+    String subjectId,
+  ) {
+    return safeCall(() async {
+      final response = await _examRemoteDatasource.getExamsBySubject(subjectId);
+
+      return Success(_examMapper.mapExamListToEntityList(response.exams));
     });
   }
 }

@@ -67,7 +67,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     switch(verifyResetCode){
       case Success<UserEntity>():
         {
-          emit(state.copyWith(resetCode: event.resetCode, isLoading: false));
+          emit(state.copyWith(resetCode: event.resetCode, isLoading: false,isFormValid: false));
           _uiController.add(NavigateToResetPassword());
         }
       case Failure<UserEntity>():
@@ -113,14 +113,13 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   void _checkPasswordChanged(){
     emit(
       state.copyWith(
-        newPassword: state.newPassword,
-        showPasswordRules: state.newPassword?.isNotEmpty,
-        hasMinLength: PasswordValidator.hasMinLength(state.newPassword!),
-        hasUpperCase: PasswordValidator.hasUpperCase(state.newPassword!),
-        hasLowerCase: PasswordValidator.hasLowerCase(state.newPassword!),
-        hasNumber: PasswordValidator.hasNumber(state.newPassword!),
+        showPasswordRules: state.newPassword.isNotEmpty,
+        hasMinLength: PasswordValidator.hasMinLength(state.newPassword),
+        hasUpperCase: PasswordValidator.hasUpperCase(state.newPassword),
+        hasLowerCase: PasswordValidator.hasLowerCase(state.newPassword),
+        hasNumber: PasswordValidator.hasNumber(state.newPassword),
         hasSpecialCharacter: PasswordValidator.hasSpecialCharacter(
-          state.newPassword!,
+          state.newPassword,
         ),
       ),
     );
