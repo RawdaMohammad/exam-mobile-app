@@ -6,7 +6,6 @@ import 'package:exam_mobile_app/data/mapper/auth_mapper.dart';
 import 'package:exam_mobile_app/data/request/sign_up_request.dart';
 import 'package:exam_mobile_app/domain/entities/user_entity.dart';
 import 'package:exam_mobile_app/domain/repo/auth_repo.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

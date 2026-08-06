@@ -10,6 +10,7 @@ class AnswerItem extends StatelessWidget {
     required this.selectedColor,
     required this.unselectedColor,
     required this.iconColor,
+    this.borderColor,
   });
 
   final String answer;
@@ -19,6 +20,7 @@ class AnswerItem extends StatelessWidget {
   final Color selectedColor;
   final Color unselectedColor;
   final Color iconColor;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,10 @@ class AnswerItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: isSelected ? selectedColor : unselectedColor,
+          border: Border.all(
+            color: borderColor ?? Colors.transparent,
+            width: 1,
+          ),
         ),
         child: Row(
           children: [

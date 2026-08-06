@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exam_mobile_app/core/utils/time_formatter.dart';
 import 'package:exam_mobile_app/core/widgets/answer_item.dart';
 import 'package:exam_mobile_app/core/widgets/time_out_dialog.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_event.dart';
 import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_state.dart';
+import 'package:exam_mobile_app/presentation/exam/exam_score_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,13 +19,11 @@ class ExamQuestionsView extends StatefulWidget {
 }
 
 class _ExamQuestionsViewState extends State<ExamQuestionsView> {
-  final int _initialDuration = 20 * 60;
   late final StreamSubscription<ExamQuestionUIEvent> _subscription;
 
   @override
   void initState() {
     super.initState();
-    context.read<ExamQuestionCubit>().doIntent(StartTimer());
     context.read<ExamQuestionCubit>().doIntent(LoadExam());
     _subscription = context.read<ExamQuestionCubit>().uiStream.listen((event) {
       switch (event) {
@@ -33,7 +34,15 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
             builder: (_) => TimeOutDialog(
               onViewScore: () {
                 Navigator.pop(context);
+                context.read<ExamQuestionCubit>().doIntent(FinishExam());
               },
+            ),
+          );
+        case NavigateToExamResult():
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ExamScoreView(result: event.result),
             ),
           );
       }
@@ -69,17 +78,20 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
                 Navigator.pop(context);
               },
             ),
-            title: Text("Exam", style: Theme.of(context).textTheme.titleLarge),
+            title: Text(
+              "exam".tr(),
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             actions: [
               const Icon(Icons.alarm_sharp),
               const SizedBox(width: 5),
               Center(
                 child: Text(
-                  "${(state.duration ~/ 60).toString().padLeft(2, '0')}:${(state.duration % 60).toString().padLeft(2, '0')}",
+                  TimeFormatter.format(state.duration),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: state.duration > _initialDuration / 2
+                    color: state.duration > state.initialDuration / 2
                         ? Colors.green
                         : Colors.red,
                   ),
@@ -93,7 +105,12 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
             child: Column(
               children: [
                 Text(
-                  "Question ${state.currentQuestion + 1} of ${state.questions.length}",
+                  "question_progress".tr(
+                    namedArgs: {
+                      "current": "${state.currentQuestion + 1}",
+                      "total": "${state.questions.length}",
+                    },
+                  ),
                 ),
                 LinearProgressIndicator(
                   value: (state.currentQuestion + 1) / state.questions.length,
@@ -162,7 +179,7 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
                           minimumSize: const Size(150, 48),
                         ),
                         child: Text(
-                          "Back",
+                          "back".tr(),
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 16,
@@ -174,14 +191,18 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
                     SizedBox(width: 16),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed:
-                            state.currentQuestion < state.questions.length - 1
-                            ? () {
-                                context.read<ExamQuestionCubit>().doIntent(
-                                  NextQuestion(),
-                                );
-                              }
-                            : null,
+                        onPressed: () {
+                          if (state.currentQuestion <
+                              state.questions.length - 1) {
+                            context.read<ExamQuestionCubit>().doIntent(
+                              NextQuestion(),
+                            );
+                          } else {
+                            context.read<ExamQuestionCubit>().doIntent(
+                              FinishExam(),
+                            );
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
                           disabledBackgroundColor: Theme.of(
@@ -198,8 +219,8 @@ class _ExamQuestionsViewState extends State<ExamQuestionsView> {
                         ),
                         child: Text(
                           state.currentQuestion == state.questions.length - 1
-                              ? "Finish"
-                              : "Next",
+                              ? "finish".tr()
+                              : "next".tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,

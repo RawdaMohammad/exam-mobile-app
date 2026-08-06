@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TimeOutDialog extends StatelessWidget {
@@ -23,8 +24,8 @@ class TimeOutDialog extends StatelessWidget {
                   height: 60,
                 ),
                 const SizedBox(width: 16),
-                const Text(
-                  "Time out !!",
+                Text(
+                  "time_out".tr(),
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.red,
@@ -44,7 +45,7 @@ class TimeOutDialog extends StatelessWidget {
                   minimumSize: const Size.fromHeight(50),
                   shape: const StadiumBorder(),
                 ),
-                child: const Text("View score", style: TextStyle(fontSize: 16)),
+                child: Text("view_score".tr(), style: TextStyle(fontSize: 16)),
               ),
             ),
           ],

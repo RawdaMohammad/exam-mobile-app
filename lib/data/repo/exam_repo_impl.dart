@@ -1,7 +1,10 @@
 import 'package:exam_mobile_app/core/network/api_results.dart';
 import 'package:exam_mobile_app/core/network/safe_call.dart';
 import 'package:exam_mobile_app/data/api/exam_api_client.dart';
+import 'package:exam_mobile_app/data/datasource/contract/exam_remote_datasource.dart';
 import 'package:exam_mobile_app/data/mapper/exam_mapper.dart';
+import 'package:exam_mobile_app/data/request/submit_exam_request.dart';
+import 'package:exam_mobile_app/domain/entities/exam_resulr_entity.dart';
 import 'package:exam_mobile_app/domain/entities/question_entity.dart';
 import 'package:exam_mobile_app/domain/repo/exam_repo.dart';
 import 'package:injectable/injectable.dart';
@@ -9,8 +12,10 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: ExamRepo)
 class ExamRepoImpl implements ExamRepo {
   final ExamApiClient _examApiClient;
+  final ExamRemoteDatasource _remoteDatasource;
   final ExamMapper _examMapper;
-  ExamRepoImpl(this._examApiClient, this._examMapper);
+  ExamRepoImpl(this._examApiClient, this._examMapper, this._remoteDatasource);
+
   @override
   Future<ApiResults<List<QuestionEntity>>> getExamQuestion(
     String examId,
@@ -20,6 +25,14 @@ class ExamRepoImpl implements ExamRepo {
       return Success(
         _examMapper.mapQuestionListToEntityList(response.questions),
       );
+    });
+  }
+
+  @override
+  Future<ApiResults<ExamResultEntity>> submitExam(SubmitExamRequest request) {
+    return safeCall(() async {
+      final response = await _remoteDatasource.submitExam(request);
+      return Success(response.toEntity());
     });
   }
 }

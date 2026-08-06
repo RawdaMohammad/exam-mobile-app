@@ -131,6 +131,31 @@
     "loginSuccessful": "Login successful",
     "loginFailed": "Login failed"
 
-  }
+  },
+
+  "exam": "Exam",
+  "question_progress": "Question {current} of {total}",
+  "back": "Back",
+  "next": "Next",
+  "finish": "Finish",
+
+  "exam_score": "Exam Score",
+  "your_score": "Your score",
+  "correct": "Correct",
+  "incorrect": "Incorrect",
+  "show_results": "Show results",
+  "start_again": "Start again",
+  "time_out": "Time out !!",
+  "view_score": "View score",
+
+  "results": "Results",
+  "no_exam_results": "No exam results found.",
+  "exam_duration": "{duration} Minutes",
+  "exam_questions": "{count} Questions",
+  "exam_result_summary": "{correct} correct answers in {time} min.",
+
+  "answers": "Answers",
+  "no_exam_history_found": "No exam history found",
+  "no_questions_found": "No questions found"
 
 }
