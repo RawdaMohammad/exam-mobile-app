@@ -4,7 +4,7 @@ import 'package:exam_mobile_app/core/base/resources.dart';
 import 'package:exam_mobile_app/core/di/di.dart' show getIt;
 import 'package:exam_mobile_app/core/widgets/app_text_form_field.dart';
 import 'package:exam_mobile_app/core/widgets/custom_button.dart';
-import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
+import 'package:exam_mobile_app/presentation/home_view.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_cubit.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_events.dart';
 import 'package:exam_mobile_app/presentation/login/cubit/login_state.dart';
@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/routes/app_routes.dart';
-import '../forget_password/cubit/forget_password_cubit.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -61,9 +60,11 @@ class _LoginViewState extends State<LoginView> {
             ).showSnackBar(SnackBar(content: Text(event.message)));
 
             if (event.message == tr("login.loginSuccessful")) {
-              Navigator.pushNamed(
+              Navigator.pushReplacement(
                 context,
-                AppRoutes.home,
+                MaterialPageRoute(
+                  builder: (_) => const HomeView(),
+                ),
               );
             }
         }

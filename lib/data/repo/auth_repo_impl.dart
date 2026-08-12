@@ -10,6 +10,7 @@ import 'package:exam_mobile_app/domain/repo/auth_repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/session/session_manager.dart';
 import '../models/user_response.dart';
 
 @Injectable(as: AuthRepo)
@@ -17,19 +18,28 @@ class AuthRepoImpl implements AuthRepo {
   final AuthRemoteDatasource remoteDatasource;
   final AuthMapper mapper;
   final SharedPreferences sharedPreferences;
+  final SessionManager sessionManager;
 
-  AuthRepoImpl(this.remoteDatasource, this.mapper, this.sharedPreferences);
+  AuthRepoImpl(
+    this.remoteDatasource,
+    this.mapper,
+    this.sharedPreferences,
+    this.sessionManager,
+  );
 
   @override
   Future<ApiResults<UserEntity>> login(UserEntity login, bool rememberMe) {
     return safeCall(() async {
-      final response = await remoteDatasource.login(login.email, login.password);
+      final response = await remoteDatasource.login(
+        login.email,
+        login.password,
+      );
       await sharedPreferences.setBool(rememberMeKey, rememberMe);
-
+      sessionManager.token = response.token;
       if (rememberMe) {
         await sharedPreferences.setString(tokenKey, response.token ?? "");
       } else {
-        await sharedPreferences.setString(tokenKey, "");        
+        await sharedPreferences.setString(tokenKey, "");
       }
       return Success(mapper.toEntity(response));
     });
@@ -46,20 +56,19 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<ApiResults<UserEntity>> forgotPassword(String? email) {
     return safeCall(() async {
-      final response = UserResponse(
-        message: tr("forgetPassword.success")
-      );
+      final response = UserResponse(message: tr("forgetPassword.success"));
       await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));
     });
   }
 
   @override
-  Future<ApiResults<UserEntity>> resetPassword(String? email, String? newPassword) {
+  Future<ApiResults<UserEntity>> resetPassword(
+    String? email,
+    String? newPassword,
+  ) {
     return safeCall(() async {
-      final response = UserResponse(
-        message: tr("resetPassword.success")
-      );
+      final response = UserResponse(message: tr("resetPassword.success"));
       await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));
     });
@@ -68,9 +77,7 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<ApiResults<UserEntity>> verifyResetCode(String? resetCode) {
     return safeCall(() async {
-      final response = UserResponse(
-        message: tr("verification.success")
-      );
+      final response = UserResponse(message: tr("verification.success"));
       await Future.delayed(const Duration(seconds: 2));
       return Success(mapper.toEntity(response));
     });

@@ -1,5 +1,6 @@
 import 'package:exam_mobile_app/data/api/exam_api_client.dart';
 import 'package:exam_mobile_app/data/datasource/contract/exam_remote_datasource.dart';
+import 'package:exam_mobile_app/data/models/exam_list_response.dart';
 import 'package:exam_mobile_app/data/models/exam_question_response.dart';
 import 'package:exam_mobile_app/data/models/subjects_response.dart';
 import 'package:exam_mobile_app/data/models/exam_result_response.dart';
@@ -15,7 +16,7 @@ class ExamRemoteDatasourceImpl implements ExamRemoteDatasource {
   Future<ExamQuestionsResponse> getExamQuestions(String examId) {
     return apiClient.getExamQuestions(examId);
   }
-  
+
   @override
   Future<SubjectsResponse> getSubjects() {
     return apiClient.getSubjects();
@@ -24,5 +25,10 @@ class ExamRemoteDatasourceImpl implements ExamRemoteDatasource {
   @override
   Future<ExamResultResponse> submitExam(SubmitExamRequest request) {
     return apiClient.submitExam(request);
+  }
+
+  @override
+  Future<ExamListResponse> getExamsBySubject(String subjectId) {
+    return apiClient.getExamsBySubject(subjectId);
   }
 }

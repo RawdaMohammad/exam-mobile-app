@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:exam_mobile_app/core/di/di.dart';
 import 'package:exam_mobile_app/presentation/exam/explorer/cubit/explore_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/explorer/cubit/explore_events.dart';
-import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
+import 'package:exam_mobile_app/presentation/exam/subject/cubit/subject_cubit.dart';
+import 'package:exam_mobile_app/presentation/exam/subject/subject_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/widgets/subject_card.dart';
@@ -29,7 +31,12 @@ class _ExploreViewState extends State<ExploreView> {
         case NavigateToSubjectExams():
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const ForgetPasswordView()),
+            MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                create: (_) => getIt<SubjectCubit>(),
+                child: SubjectView(subject: event.subject),
+              ),
+            ),
           );
         case ShowSnackBar():
           ScaffoldMessenger.of(
@@ -95,9 +102,7 @@ class _ExploreViewState extends State<ExploreView> {
               child: BlocBuilder<ExploreCubit, ExploreState>(
                 builder: (context, state) {
                   if (state.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
                   return ListView.separated(
                     separatorBuilder: (_, _) => const SizedBox(height: 16),
@@ -109,7 +114,7 @@ class _ExploreViewState extends State<ExploreView> {
                         onTap: () {
                           debugPrint("Clicked: ${subject.id}");
                           context.read<ExploreCubit>().doIntent(
-                            SubjectClicked(subject.id),
+                            SubjectClicked(subject),
                           );
                         },
                       );

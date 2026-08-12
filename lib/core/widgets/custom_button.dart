@@ -28,9 +28,7 @@ class CustomButton extends StatelessWidget {
       width: double.infinity,
       height: 48,
       child: FilledButton(
-        onPressed: isLoading || !isNotDisabled
-        ? null
-        : onPressedAction,
+        onPressed: isLoading || !isNotDisabled ? null : onPressedAction,
         style: FilledButton.styleFrom(
           backgroundColor: isNotDisabled
               ? (backgroundColor ?? Theme.of(context).colorScheme.primary)
@@ -49,9 +47,9 @@ class CustomButton extends StatelessWidget {
               )
             : Text(
                 buttonLabel,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleSmall?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: textColor ?? Colors.white,
+                ),
               ),
       ),
     );

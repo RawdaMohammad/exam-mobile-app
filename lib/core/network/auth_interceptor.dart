@@ -3,11 +3,13 @@ import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../session/session_manager.dart';
 
 @injectable
 class AuthInterceptor implements Interceptor {
   final SharedPreferences sharedPreferences;
-  AuthInterceptor(this.sharedPreferences);
+  final SessionManager sessionManager;
+  AuthInterceptor(this.sharedPreferences, this.sessionManager);
 
   static const publicEndpoints = {
     "/api/v1/auth/signup",
@@ -26,7 +28,8 @@ class AuthInterceptor implements Interceptor {
   Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler) async {
-    String? token = sharedPreferences.getString(tokenKey);
+    String? token = sessionManager.token ??
+        sharedPreferences.getString(tokenKey);
     if (!publicEndpoints.contains(options.path) &&
         token != null &&
         token.isNotEmpty) {

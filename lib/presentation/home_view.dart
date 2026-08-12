@@ -1,6 +1,7 @@
 import 'package:exam_mobile_app/core/widgets/custom_navigation_bar.dart';
 import 'package:exam_mobile_app/presentation/exam/result/cubit/exam_results_cubit.dart';
 import 'package:exam_mobile_app/presentation/exam/result/exam_results_view.dart';
+import 'package:exam_mobile_app/presentation/forget_password/cubit/forget_password_cubit.dart';
 import 'package:exam_mobile_app/presentation/forget_password/reset_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
             child: const ExamResultsView(),
           ),
           BlocProvider(
-            create: (_) => getIt<ExploreCubit>(),
+            create: (_) => getIt<ForgetPasswordCubit>(),
             child: const ResetPasswordView(),
           ),
         ],

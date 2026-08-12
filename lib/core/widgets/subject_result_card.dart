@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class SubjectResultCard extends StatelessWidget {
   final int duration;
   final int numberOfQuestions;
-  final int numOfCorrectAnswers;
-  final String takenTime;
+  final int? numOfCorrectAnswers;
+  final String? takenTime;
   final String examTitle;
   final String image;
   final VoidCallback onTap;
@@ -14,8 +14,8 @@ class SubjectResultCard extends StatelessWidget {
     super.key,
     required this.duration,
     required this.numberOfQuestions,
-    required this.numOfCorrectAnswers,
-    required this.takenTime,
+    this.numOfCorrectAnswers,
+    this.takenTime,
     required this.examTitle,
     required this.image,
     required this.onTap,
@@ -72,17 +72,19 @@ class SubjectResultCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: 15),
-                  Text(
-                    "exam_result_summary".tr(
-                      namedArgs: {
-                        "correct": numOfCorrectAnswers.toString(),
-                        "time": takenTime,
-                      },
+                  if (numOfCorrectAnswers != null && takenTime != null) ...[
+                    Text(
+                      "exam_result_summary".tr(
+                        namedArgs: {
+                          "correct": numOfCorrectAnswers.toString(),
+                          "time": takenTime!,
+                        },
+                      ),
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
+                  ],
                 ],
               ),
             ),

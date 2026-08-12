@@ -3,8 +3,7 @@ import 'package:exam_mobile_app/core/app_config_provider.dart';
 import 'package:exam_mobile_app/core/constants/storage_keys.dart';
 import 'package:exam_mobile_app/core/di/di.dart';
 import 'package:exam_mobile_app/core/local/hive/hive_config.dart';
-import 'package:exam_mobile_app/presentation/exam/questions/cubit/exam_question_cubit.dart';
-import 'package:exam_mobile_app/presentation/exam/questions/exam_questions_view.dart';
+import 'package:exam_mobile_app/presentation/exam/subject/subject_view.dart';
 import 'package:exam_mobile_app/presentation/forget_password/cubit/forget_password_cubit.dart';
 import 'package:exam_mobile_app/presentation/forget_password/forget_password_view.dart';
 import 'package:exam_mobile_app/presentation/forget_password/reset_password_view.dart';
@@ -23,8 +22,8 @@ Future<Widget> getStartScreen() async {
   final prefs = getIt<SharedPreferences>();
   final rememberMe = prefs.getBool(rememberMeKey) ?? false;
 
-if (rememberMe) {
-    return const HomeView(); 
+  if (rememberMe) {
+    return const HomeView();
   } else {
     return BlocProvider(
       create: (_) => getIt<LoginCubit>(),
@@ -71,11 +70,11 @@ class MyApp extends StatelessWidget {
               locale: context.locale,
               title: 'Exam App',
               theme: getIt<AppTheme>().themeData,
-              // home: startScreen,
-              home: BlocProvider(
-                create: (_) => getIt<LoginCubit>(),
-                child: const LoginView(),
-              ),
+              home: startScreen,
+              // home: BlocProvider(
+              //   create: (_) => getIt<LoginCubit>(),
+              //   child: const LoginView(),
+              // ),
               routes: {
                 AppRoutes.login: (context) => BlocProvider(
                   create: (_) => getIt<LoginCubit>(),

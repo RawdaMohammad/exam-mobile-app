@@ -96,6 +96,24 @@ class AnswerResponse {
   Map<String, dynamic> toJson() => {'key': key, 'answer': answer};
 }
 
+class ExamDetailsResponse {
+  final String message;
+  final ExamResponse exam;
+
+  const ExamDetailsResponse({
+    required this.message,
+    required this.exam,
+  });
+
+  factory ExamDetailsResponse.fromJson(Map<String, dynamic> json) {
+    return ExamDetailsResponse(
+      message: json['message'] ?? '',
+      exam: ExamResponse.fromJson(
+        json['exam'] as Map<String, dynamic>? ?? {},
+      ),
+    );
+  }
+}
 class ExamResponse {
   final String id;
   final String title;
@@ -151,24 +169,7 @@ class SubjectResponse {
 
   Map<String, dynamic> toJson() => {'_id': id, 'name': name, 'icon': icon};
 }
-class ExamDetailsResponse {
-  final String message;
-  final ExamResponse exam;
 
-  const ExamDetailsResponse({
-    required this.message,
-    required this.exam,
-  });
-
-  factory ExamDetailsResponse.fromJson(Map<String, dynamic> json) {
-    return ExamDetailsResponse(
-      message: json['message'] ?? '',
-      exam: ExamResponse.fromJson(
-        json['exam'] as Map<String, dynamic>? ?? {},
-      ),
-    );
-  }
-}
 
 class SubjectDetailsResponse {
   final String message;
